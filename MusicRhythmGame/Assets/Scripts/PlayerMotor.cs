@@ -46,4 +46,8 @@ public class PlayerMotor : MonoBehaviour
         // move 5 meters per second
         controller.Move(moveVector * Time.deltaTime);
     }
+
+    public void SetSpeed(float modifier) {
+        speed = 5.0f + modifier;
+    }
 }
