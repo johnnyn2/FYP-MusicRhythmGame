@@ -50,4 +50,16 @@ public class PlayerMotor : MonoBehaviour
     public void SetSpeed(float modifier) {
         speed = 5.0f + modifier;
     }
+
+    // it is called when the character hits something
+    private void OnControllerColliderHit(ControllerColliderHit hit) {
+        if (hit.point.z > transform.position.z + controller.radius) {
+            // attack minions when the character hits them
+            Attack();
+        }
+    }
+
+    private void Attack() {
+        Debug.Log("Attack!");
+    }
 }
