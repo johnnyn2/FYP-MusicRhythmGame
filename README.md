@@ -40,7 +40,7 @@
 
 2. Every important!!! Remember to pull code before push code. Otherwise, the branch may be fast-forwarded !!! And no longer be able to keep track of the upstream branch(master). In this case, you have to run another set of commands to fix the fast-forward problem.  
 --------------------
-### Step 4. Create pull request when some feature is ready(can ignore to this)
+### Step 4. Create pull request when some feature is ready
 1. Create pull request in the repository webpage once you have completed some feature(s). Pull request would compare the changes between the base branch and compare branch. E.g. base: master, compare: dev_sam. Once the pull request is accepted. The changes in your branch would be merged to master branch.
 --------------------
 ### Reamrks:
