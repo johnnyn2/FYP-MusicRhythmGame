@@ -10,6 +10,7 @@ public class PlayerMotor : MonoBehaviour
     private float verticalVelocity = 0.0f;
     private float gravity = 12.0f;
     private float animationDuration = 2.0f;
+    private float startTime;
 
     private bool isDead = false;
 
@@ -17,6 +18,7 @@ public class PlayerMotor : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController> ();
+        startTime = Time.time;
     }
 
     // Update is called once per frame
@@ -27,7 +29,7 @@ public class PlayerMotor : MonoBehaviour
         }
 
         // Disable user controller at the beginning of 2 seconds
-        if (Time.time < animationDuration) {
+        if (Time.time - startTime < animationDuration) {
             controller.Move(Vector3.forward * speed * Time.deltaTime);
             return;
         }
