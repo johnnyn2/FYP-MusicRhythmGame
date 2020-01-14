@@ -61,7 +61,7 @@ public class PlayerMotor : MonoBehaviour
 
     // it is called when the character hits something
     private void OnControllerColliderHit(ControllerColliderHit hit) {
-        if (hit.point.z > transform.position.z + controller.radius) {
+        if (hit.point.z > transform.position.z + 0.1f && hit.gameObject.tag == "Enemy") {
             // attack minions when the character hits them
             Dead();
         }
