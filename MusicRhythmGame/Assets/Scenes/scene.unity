@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 52617318}
   - component: {fileID: 52617317}
   - component: {fileID: 52617322}
+  - component: {fileID: 52617323}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Player
@@ -246,6 +247,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 109963821}
   deathMenu: {fileID: 1765068291}
+--- !u!95 &52617323
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52617316}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &109963819
 GameObject:
   m_ObjectHideFlags: 0
