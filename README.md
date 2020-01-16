@@ -45,3 +45,21 @@
 --------------------
 ### Reamrks:
 1. For more git command, please visit https://github.com/joshnh/Git-Commands
+--------------------
+#### How to set Visual Studio Code as prefered text editor in Unity?
+1. Open the project via Unity Hub
+2. Click "Edit" -> "Preferences..." -> "External Script Editer" -> "Visual Studio Code"
+3. Close the Window
+4. Click "Assets" -> "Open C# Project"
+5. VS Code should open your project
+--------------------
+#### Visual Studio Code Intellisense and Recommended Extensions
+1. VS Code is the best editor for editing Unity scripts as it provides a lot of extensions that help us for development. Some recommended extensions are:
+- <b>C#</b>
+- <b>Unity Code Snippets</b>
+- <b>Unity Tools</b>
+1. In order to setup intellisense for coding Unity Scripts in VS Code, please download all the extension above.
+2. After downloading C# extension, it should prompt you to install <b>.Net core sdk</b> if you havn not installed it yet. Just install the latest <b>.Net core sdk</b> (https://dotnet.microsoft.com/download/dotnet-core) will do the work.
+3. Then, OmniSharp server will start for our project and it will fail in loading <b>Assembly-CSharp.csproj</b> file (in the "Ouput" section of VS Code terminal).
+4. Then, you need to install <b>.Net Framework developer pack version 4.7.1</b> (https://dotnet.microsoft.com/download/dotnet-framework)
+5. OmniSharp server should be able to load Assembly-CSharp.csproj now. Open any .cs file and try whether there is intellisense or not. For example, type "gameO" and it should suggest you "gameObject" variable
