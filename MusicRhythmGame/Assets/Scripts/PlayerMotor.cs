@@ -63,7 +63,7 @@ public class PlayerMotor : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit) {
         if (hit.point.z > transform.position.z + 0.1f && hit.gameObject.tag == "Enemy") {
             // attack minions when the character hits them
-            Dead();
+            Destroy(hit.gameObject);
         }
     }
 
