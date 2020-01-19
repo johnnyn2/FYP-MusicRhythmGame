@@ -7,7 +7,6 @@ public class MinionManager : MonoBehaviour
     public GameObject[] minionPrefabs;
     private int lastPrefabIndex = 0;
     private Transform playerTransform;
-    private float spawnX = 0.0f;
     private float spawnZ = 0.0f; // where exactly in Z should we spawn this object
     private List<GameObject> activeMinions;
     private const float tileLength = 10.0f;
@@ -38,7 +37,7 @@ public class MinionManager : MonoBehaviour
             GameObject go;
             go = Instantiate(minionPrefabs[0]) as GameObject;
             go.transform.SetParent(transform);
-            go.transform.position = new Vector3(0, 1, initialMountPoint + i*2);
+            go.transform.position = new Vector3(Random.Range(-1, 2), 1, initialMountPoint + i*2);
             activeMinions.Add(go);
         }
     }
