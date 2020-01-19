@@ -19,8 +19,9 @@ public class MinionManager : MonoBehaviour
         activeMinions = new List<GameObject>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         for (int i = 0; i < amnTilesOnScreen; i++) {
-            spawnMinion();
+            // spawnMinion();
         }
+        spawnMinion();
     }
 
     // Update is called once per frame
@@ -33,17 +34,17 @@ public class MinionManager : MonoBehaviour
     }
 
     private void spawnMinion(int prefabIndex = -1) {
-        GameObject go;
-        // use this code when we have 3 different prefabs
-        // if (prefabIndex == -1)
-        //     go = Instantiate(minionPrefabs[RandomPrefabIndex()]) as GameObject;
-        // else
-        //     go = Instantiate(minionPrefabs[prefabIndex]) as GameObject;
-        go = Instantiate(minionPrefabs[0]) as GameObject;
-        go.transform.SetParent(transform);
-        go.transform.position = new Vector3(0, 1, spawnZ);
+        createMinionsInTile(spawnZ);
         spawnZ += tileLength;
-        activeMinions.Add(go);
+    }
+    private void createMinionsInTile(float initialMountPoint) {
+        for (int i=0; i<5; i++) {
+            GameObject go;
+            go = Instantiate(minionPrefabs[0]) as GameObject;
+            go.transform.SetParent(transform);
+            go.transform.position = new Vector3(0, 1, initialMountPoint + i*2);
+            activeMinions.Add(go);
+        }
     }
     private void DeleteMinion() {
         Destroy(activeMinions[0]);

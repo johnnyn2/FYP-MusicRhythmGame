@@ -45,7 +45,7 @@ public class TileManager : MonoBehaviour
         //     go = Instantiate(tilePrefabs[prefabIndex]) as GameObject;
         go = Instantiate(tilePrefabs[0]) as GameObject;
         go.transform.SetParent(transform);
-        go.transform.position = Vector3.forward * spawnZ;
+        go.transform.position = Vector3.forward * (spawnZ + 5.0F);
         spawnZ += tileLength;
         activeTiles.Add(go);
     }
