@@ -43,8 +43,15 @@ public class MinionManager : MonoBehaviour
         }
     }
     private void DeleteMinion() {
-        Destroy(activeMinions[0]);
-        activeMinions.RemoveAt(0);
+        // Delete any missed minion
+        for(int i=0;i<activeMinions.Count; i++) {
+            if (activeMinions[i]) {
+                if (playerTransform.position.z >= activeMinions[i].transform.position.z) {
+                    Destroy(activeMinions[i]);
+                    activeMinions.RemoveAt(i);
+                }
+            }
+        }
     }
 
     private int RandomPrefabIndex() {
