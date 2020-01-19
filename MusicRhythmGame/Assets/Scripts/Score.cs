@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    private float score = 0.0f;
+    private int score = 0;
     private int difficultyLevel = 1;
     private int maxDifficultyLevel = 10;
     private int scoreToNextLevel = 10;
@@ -25,8 +25,12 @@ public class Score : MonoBehaviour
         if (score >= scoreToNextLevel) {
             LevelUp();
         }
-        score += Time.deltaTime * difficultyLevel;
+        // score += Time.deltaTime * difficultyLevel;
         scoreText.text = ((int)score).ToString();
+    }
+
+    public void IncreaseScore() {
+        score++;
     }
 
     void LevelUp() {

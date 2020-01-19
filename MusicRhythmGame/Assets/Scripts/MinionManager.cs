@@ -7,8 +7,7 @@ public class MinionManager : MonoBehaviour
     public GameObject[] minionPrefabs;
     private int lastPrefabIndex = 0;
     private Transform playerTransform;
-    private float spawnX = 0.0f;
-    private float spawnZ = 0.0f; // where exactly in Z should we spawn this object
+    private float spawnZ = 15.0f; // where exactly in Z should we spawn this object
     private List<GameObject> activeMinions;
     private const float tileLength = 10.0f;
     private float safeZone = 15.0f; // within the safe zone, the tiles won't be deleted
@@ -18,36 +17,40 @@ public class MinionManager : MonoBehaviour
     {
         activeMinions = new List<GameObject>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        for (int i = 0; i < amnTilesOnScreen; i++) {
-            spawnMinion();
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
         if (playerTransform.position.z - safeZone > (spawnZ - amnTilesOnScreen * tileLength)) {
-            spawnMinion();
+            SpawnMinion();
             DeleteMinion();
         }
     }
 
-    private void spawnMinion(int prefabIndex = -1) {
-        GameObject go;
-        // use this code when we have 3 different prefabs
-        // if (prefabIndex == -1)
-        //     go = Instantiate(minionPrefabs[RandomPrefabIndex()]) as GameObject;
-        // else
-        //     go = Instantiate(minionPrefabs[prefabIndex]) as GameObject;
-        go = Instantiate(minionPrefabs[0]) as GameObject;
-        go.transform.SetParent(transform);
-        go.transform.position = new Vector3(0, 1, spawnZ);
+    private void SpawnMinion(int prefabIndex = -1) {
+        CreateMinionsInTile(spawnZ);
         spawnZ += tileLength;
-        activeMinions.Add(go);
+    }
+    private void CreateMinionsInTile(float initialMountPoint) {
+        for (int i=0; i<5; i++) {
+            GameObject go;
+            go = Instantiate(minionPrefabs[0]) as GameObject;
+            go.transform.SetParent(transform);
+            go.transform.position = new Vector3(Random.Range(-1, 2), 1, initialMountPoint + i*2);
+            activeMinions.Add(go);
+        }
     }
     private void DeleteMinion() {
-        Destroy(activeMinions[0]);
-        activeMinions.RemoveAt(0);
+        // Delete any missed minion
+        for(int i=0;i<activeMinions.Count; i++) {
+            if (activeMinions[i]) {
+                if (playerTransform.position.z >= activeMinions[i].transform.position.z) {
+                    Destroy(activeMinions[i]);
+                    activeMinions.RemoveAt(i);
+                }
+            }
+        }
     }
 
     private int RandomPrefabIndex() {
