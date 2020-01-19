@@ -18,10 +18,6 @@ public class MinionManager : MonoBehaviour
     {
         activeMinions = new List<GameObject>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        for (int i = 0; i < amnTilesOnScreen; i++) {
-            // spawnMinion();
-        }
-        spawnMinion();
     }
 
     // Update is called once per frame
