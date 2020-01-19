@@ -64,6 +64,7 @@ public class PlayerMotor : MonoBehaviour
         if (hit.point.z > transform.position.z + 0.1f && hit.gameObject.tag == "Enemy") {
             // attack minions when the character hits them
             Destroy(hit.gameObject);
+            GetComponent<Score>().IncreaseScore();
         }
     }
 

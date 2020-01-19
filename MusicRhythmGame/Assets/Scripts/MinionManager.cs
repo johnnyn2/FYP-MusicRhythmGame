@@ -23,16 +23,16 @@ public class MinionManager : MonoBehaviour
     void Update()
     {
         if (playerTransform.position.z - safeZone > (spawnZ - amnTilesOnScreen * tileLength)) {
-            spawnMinion();
+            SpawnMinion();
             DeleteMinion();
         }
     }
 
-    private void spawnMinion(int prefabIndex = -1) {
-        createMinionsInTile(spawnZ);
+    private void SpawnMinion(int prefabIndex = -1) {
+        CreateMinionsInTile(spawnZ);
         spawnZ += tileLength;
     }
-    private void createMinionsInTile(float initialMountPoint) {
+    private void CreateMinionsInTile(float initialMountPoint) {
         for (int i=0; i<5; i++) {
             GameObject go;
             go = Instantiate(minionPrefabs[0]) as GameObject;
