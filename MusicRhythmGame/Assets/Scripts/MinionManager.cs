@@ -7,7 +7,7 @@ public class MinionManager : MonoBehaviour
     public GameObject[] minionPrefabs;
     private int lastPrefabIndex = 0;
     private Transform playerTransform;
-    private float spawnZ = 0.0f; // where exactly in Z should we spawn this object
+    private float spawnZ = 15.0f; // where exactly in Z should we spawn this object
     private List<GameObject> activeMinions;
     private const float tileLength = 10.0f;
     private float safeZone = 15.0f; // within the safe zone, the tiles won't be deleted
