@@ -1,5 +1,4 @@
 # MusicRhythmGame
-### @Author: HO WAI KIN SAM (wkhoae@connect.ust.hk)
 --------------------
 ## Project Setup: Install UnityHub and Unity (https://unity3d.com/get-unity/download)
 ### Step 1: Install UnityHub
