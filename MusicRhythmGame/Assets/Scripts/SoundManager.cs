@@ -23,11 +23,7 @@ public class SoundManager : MonoBehaviour
         Play("faded");
     }
     void Update() {
-        // if ((Time.time - startTime < animationDuration) || isPlaying) {
-        //     return;
-        // }
-        // Play("faded");
-        // isPlaying = true;
+        Debug.Log(IsGameEnded());
     }
     public void Play(string name) {
         Sound s = Array.Find(songs, song => song.name == name);
@@ -35,5 +31,16 @@ public class SoundManager : MonoBehaviour
             return;
         }
         s.source.PlayDelayed(2.0f);
+    }
+
+    public bool IsGameEnded() {
+        Sound s = Array.Find(songs, song => song.name == "faded");
+        if (s == null || s.source == null) {
+            return false;
+        } else if (s.source.isPlaying) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

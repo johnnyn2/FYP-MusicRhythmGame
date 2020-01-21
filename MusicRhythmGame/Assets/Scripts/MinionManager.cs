@@ -22,7 +22,9 @@ public class MinionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerTransform.position.z - safeZone > (spawnZ - amnTilesOnScreen * tileLength)) {
+        GameObject soundManager = GameObject.Find("SoundManager");
+        bool isGameEnded = soundManager.GetComponent<SoundManager>().IsGameEnded();
+        if (!isGameEnded && (playerTransform.position.z - safeZone > (spawnZ - amnTilesOnScreen * tileLength))) {
             SpawnMinion();
             DeleteMinion();
         }
