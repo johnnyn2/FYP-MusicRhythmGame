@@ -23,7 +23,7 @@ public class SoundManager : MonoBehaviour
         Play("faded");
     }
     void Update() {
-        Debug.Log(IsGameEnded());
+        Debug.Log(IsMusicEnded());
     }
     public void Play(string name) {
         Sound s = Array.Find(songs, song => song.name == name);
@@ -33,7 +33,7 @@ public class SoundManager : MonoBehaviour
         s.source.PlayDelayed(2.0f);
     }
 
-    public bool IsGameEnded() {
+    public bool IsMusicEnded() {
         Sound s = Array.Find(songs, song => song.name == "faded");
         if (s == null || s.source == null) {
             return false;
