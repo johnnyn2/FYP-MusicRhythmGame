@@ -23,8 +23,8 @@ public class MinionManager : MonoBehaviour
     void Update()
     {
         GameObject soundManager = GameObject.Find("SoundManager");
-        bool isMusicEnded = soundManager.GetComponent<SoundManager>().IsMusicEnded();
-        if (!isMusicEnded && (playerTransform.position.z - safeZone > (spawnZ - amnTilesOnScreen * tileLength))) {
+        bool isMusicEnding = soundManager.GetComponent<SoundManager>().IsMusicEnding();
+        if (!isMusicEnding && (playerTransform.position.z - safeZone > (spawnZ - amnTilesOnScreen * tileLength))) {
             SpawnMinion();
             DeleteMinion();
         }

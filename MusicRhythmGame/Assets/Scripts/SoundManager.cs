@@ -19,15 +19,14 @@ public class SoundManager : MonoBehaviour
     }
     
     void Start() {
-        // startTime = Time.time;
+        startTime = Time.time;
         Sound s = Array.Find(songs, song => song.name == "faded");
-        float[] samples = new float[s.clip.samples * s.clip.channels];
-        s.clip.GetData(samples, 0);
-        Debug.Log("samples length: " + samples.Length);
+        Debug.Log("Volume: " + s.volume);
+        Debug.Log("Pitch: "+ s.pitch);
+        Debug.Log("Length: "+ s.clip.length);
         Play("faded");
     }
-    void Update() {
-    }
+    void Update() {}
     public void Play(string name) {
         Sound s = Array.Find(songs, song => song.name == name);
         if (s == null) {
@@ -36,14 +35,15 @@ public class SoundManager : MonoBehaviour
         s.source.PlayDelayed(animationDuration);
     }
 
-    public bool IsMusicEnded() {
+    public bool IsMusicEnding() {
         Sound s = Array.Find(songs, song => song.name == "faded");
         if (s == null || s.source == null) {
             return false;
-        } else if (s.source.isPlaying) {
-            return false;
-        } else {
+        }
+        float remainingTime = s.clip.length - (Time.time - startTime); 
+        if (remainingTime < 35.0f) {
             return true;
         }
+        return false;
     }
 }

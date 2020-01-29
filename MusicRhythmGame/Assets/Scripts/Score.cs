@@ -23,7 +23,7 @@ public class Score : MonoBehaviour
         }
 
         if (score >= scoreToNextLevel) {
-            LevelUp();
+            // LevelUp();
         }
         // score += Time.deltaTime * difficultyLevel;
         scoreText.text = ((int)score).ToString();
