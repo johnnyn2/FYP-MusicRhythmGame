@@ -1346,7 +1346,7 @@ MonoBehaviour:
   songs:
   - name: faded
     clip: {fileID: 8300000, guid: 31d2bcef7a208af409ba745dd16704c2, type: 3}
-    volume: 0.78
+    volume: 1
     pitch: 1
     source: {fileID: 0}
 --- !u!4 &1620172540
