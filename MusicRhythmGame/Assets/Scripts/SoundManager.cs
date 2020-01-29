@@ -20,17 +20,20 @@ public class SoundManager : MonoBehaviour
     
     void Start() {
         // startTime = Time.time;
+        Sound s = Array.Find(songs, song => song.name == "faded");
+        float[] samples = new float[s.clip.samples * s.clip.channels];
+        s.clip.GetData(samples, 0);
+        Debug.Log("samples length: " + samples.Length);
         Play("faded");
     }
     void Update() {
-        Debug.Log(IsMusicEnded());
     }
     public void Play(string name) {
         Sound s = Array.Find(songs, song => song.name == name);
         if (s == null) {
             return;
         }
-        s.source.PlayDelayed(2.0f);
+        s.source.PlayDelayed(animationDuration);
     }
 
     public bool IsMusicEnded() {
