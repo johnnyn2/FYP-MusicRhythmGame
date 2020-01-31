@@ -1349,6 +1349,11 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: theFatRat
+    clip: {fileID: 8300000, guid: 26b95aa1aaa91ef4eaea0b3decfb7062, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!4 &1620172540
 Transform:
   m_ObjectHideFlags: 0

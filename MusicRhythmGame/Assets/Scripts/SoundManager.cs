@@ -20,11 +20,11 @@ public class SoundManager : MonoBehaviour
     
     void Start() {
         startTime = Time.time;
-        Sound s = Array.Find(songs, song => song.name == "faded");
+        Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
         Debug.Log("Volume: " + s.volume);
         Debug.Log("Pitch: "+ s.pitch);
         Debug.Log("Length: "+ s.clip.length);
-        Play("faded");
+        Play(PlayerPrefs.GetString("selectedSong"));
     }
     void Update() {}
     public void Play(string name) {
@@ -36,7 +36,7 @@ public class SoundManager : MonoBehaviour
     }
 
     public bool IsMusicEnding() {
-        Sound s = Array.Find(songs, song => song.name == "faded");
+        Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
         if (s == null || s.source == null) {
             return false;
         }

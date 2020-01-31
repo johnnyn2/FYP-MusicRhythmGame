@@ -15,6 +15,6 @@ public class MainMenu : MonoBehaviour
     }
 
     public void ToGame() {
-        SceneManager.LoadScene("game");
+        SceneManager.LoadScene("songmenu");
     }
 }
