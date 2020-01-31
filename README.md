@@ -63,5 +63,3 @@
 4. Then, you need to install <b>.Net Framework developer pack version 4.7.1</b> (https://dotnet.microsoft.com/download/dotnet-framework)
 5. OmniSharp server should be able to load Assembly-CSharp.csproj now. Open any .cs file and try whether there is intellisense or not. For example, type "gameO" and it should suggest you "gameObject" variable
 --------------------
-### Reference for music beat detection:
-1. https://github.com/allanpichardo/Unity-Beat-Detection
