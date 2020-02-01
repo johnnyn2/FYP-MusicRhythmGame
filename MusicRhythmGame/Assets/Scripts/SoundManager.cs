@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
     public Sound[] songs;
     private float startTime;
     private float animationDuration = 2.0f;
-    private bool isPlaying = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -19,21 +19,31 @@ public class SoundManager : MonoBehaviour
     }
     
     void Start() {
-        // startTime = Time.time;
-        Play("faded");
+        startTime = Time.time;
+        Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
+        Debug.Log("Volume: " + s.volume);
+        Debug.Log("Pitch: "+ s.pitch);
+        Debug.Log("Length: "+ s.clip.length);
+        Play(PlayerPrefs.GetString("selectedSong"));
     }
-    void Update() {
-        // if ((Time.time - startTime < animationDuration) || isPlaying) {
-        //     return;
-        // }
-        // Play("faded");
-        // isPlaying = true;
-    }
+    void Update() {}
     public void Play(string name) {
         Sound s = Array.Find(songs, song => song.name == name);
         if (s == null) {
             return;
         }
-        s.source.PlayDelayed(2.0f);
+        s.source.PlayDelayed(animationDuration);
+    }
+
+    public bool IsMusicEnding() {
+        Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
+        if (s == null || s.source == null) {
+            return false;
+        }
+        float remainingTime = s.clip.length - (Time.time - startTime); 
+        if (remainingTime < 35.0f) {
+            return true;
+        }
+        return false;
     }
 }

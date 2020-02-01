@@ -23,7 +23,7 @@ public class Score : MonoBehaviour
         }
 
         if (score >= scoreToNextLevel) {
-            LevelUp();
+            // LevelUp();
         }
         // score += Time.deltaTime * difficultyLevel;
         scoreText.text = ((int)score).ToString();
@@ -43,8 +43,6 @@ public class Score : MonoBehaviour
         difficultyLevel++;
 
         GetComponent<PlayerMotor>().SetSpeed(difficultyLevel);
-
-        Debug.Log(difficultyLevel);
     }
 
     public void OnDeath() {
