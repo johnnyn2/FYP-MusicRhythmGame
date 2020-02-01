@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
     public Sound[] songs;
     private float startTime;
     private float animationDuration = 2.0f;
-    private bool isPlaying = false;
+
     // Start is called before the first frame update
     void Awake()
     {
