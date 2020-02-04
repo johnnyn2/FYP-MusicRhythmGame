@@ -8,51 +8,27 @@ public class MinionManager : MonoBehaviour
     private int lastPrefabIndex = 0;
     private Transform playerTransform;
     private float spawnZ = 15.0f; // where exactly in Z should we spawn this object
-    private List<GameObject> activeMinions;
+    private List<GameObject> activeMinions = new List<GameObject>();
     private const float tileLength = 10.0f;
     private float safeZone = 15.0f; // within the safe zone, the tiles won't be deleted
     private int amnTilesOnScreen = 10; // number of tiles on screen at most
+    private float speed = 5.0f;
     // Start is called before the first frame update
     void Start()
     {
-        activeMinions = new List<GameObject>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        GameObject soundManager = GameObject.Find("SoundManager");
-        bool isMusicEnding = soundManager.GetComponent<SoundManager>().IsMusicEnding();
-        if (!isMusicEnding && (playerTransform.position.z - safeZone > (spawnZ - amnTilesOnScreen * tileLength))) {
-            SpawnMinion();
-            DeleteMinion();
-        }
-    }
+    void Update() {}
 
-    private void SpawnMinion(int prefabIndex = -1) {
-        CreateMinionsInTile(spawnZ);
-        spawnZ += tileLength;
-    }
-    private void CreateMinionsInTile(float initialMountPoint) {
-        for (int i=0; i<5; i++) {
-            GameObject go;
-            go = Instantiate(minionPrefabs[0]) as GameObject;
-            go.transform.SetParent(transform);
-            go.transform.position = new Vector3(Random.Range(-1, 2), 1, initialMountPoint + i*2);
-            activeMinions.Add(go);
-        }
-    }
-    private void DeleteMinion() {
-        // Delete any missed minion
-        for(int i=0;i<activeMinions.Count; i++) {
-            if (activeMinions[i]) {
-                if (playerTransform.position.z >= activeMinions[i].transform.position.z) {
-                    Destroy(activeMinions[i]);
-                    activeMinions.RemoveAt(i);
-                }
-            }
-        }
+    public void SpawnMinion(float z) {
+        GameObject go;
+        go = Instantiate(minionPrefabs[0]) as GameObject;
+        go.transform.SetParent(transform);
+        // 0.5f is half of the z of the minion
+        go.transform.position = new Vector3(Random.Range(-1, 2), 1, z * speed + tileLength + 0.5f);
+        activeMinions.Add(go);
     }
 
     private int RandomPrefabIndex() {

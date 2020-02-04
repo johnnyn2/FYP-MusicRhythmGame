@@ -1,7 +1,16 @@
 ﻿using System;
 using UnityEngine;
 using System.Numerics;
+using System.Collections.Generic;
 using DSPLib;
+
+public class SpecificSpectralFluxInfo {
+	public int time;
+	public float spectralFlux;
+	public float threshold;
+	public float prunedSpectralFlux;
+	public bool isPeak;
+}
 
 public class SoundManager : MonoBehaviour
 {
@@ -35,19 +44,54 @@ public class SoundManager : MonoBehaviour
         channels = s.source.clip.channels;
         numOfSamples = s.source.clip.samples;
         clipLength = s.source.clip.length;
+        Debug.Log("clip length: " + clipLength);
         samples = new float[s.source.clip.samples * s.source.clip.channels];
         // the sample data is stored as [L, R, L, R, L, R, ...] in the array
         s.source.clip.GetData(samples, 0);
         GetSpectrumData(samples);
 
-        for(int i=0;i<preProcessedSpectralFluxAnalyzer.spectralFluxSamples.Count; i++) {
-            if (preProcessedSpectralFluxAnalyzer.spectralFluxSamples[i].isPeak) {
-                Debug.Log("Peak Time: " + preProcessedSpectralFluxAnalyzer.spectralFluxSamples[i].time);
+        GameObject minionManager = GameObject.Find("MinionManager");
+        Debug.Log("samples length: " + samples.Length);
+        Debug.Log("flux samples length: " + preProcessedSpectralFluxAnalyzer.spectralFluxSamples.Count);
+        List<SpectralFluxInfo> peakSamples =  preProcessedSpectralFluxAnalyzer.spectralFluxSamples.FindAll(IsPeakSample);
+        Debug.Log("Peak Samples Length: " + peakSamples.Count);
+        for(int i=0;i<peakSamples.Count;i++) {
+            Debug.Log(String.Format("Spectral flux: {0}, threshold: {1}, prunedSpectralFlux: {2}, time: {3}",
+                peakSamples[i].spectralFlux,
+                peakSamples[i].threshold,
+                peakSamples[i].prunedSpectralFlux,
+                peakSamples[i].time
+            ));
+            // Find the main beat from a set of beats
+            if (i==0) {
+                if (peakSamples[0].prunedSpectralFlux > peakSamples[1].prunedSpectralFlux) {
+                    minionManager.GetComponent<MinionManager>().SpawnMinion(peakSamples[i].time);
+                }
+            } else if (i== peakSamples.Count-1) {
+                if (peakSamples[i].prunedSpectralFlux > peakSamples[i-1].prunedSpectralFlux) {
+                    minionManager.GetComponent<MinionManager>().SpawnMinion(peakSamples[i].time);
+                }
+            } else {
+                if (peakSamples[i-1].prunedSpectralFlux < peakSamples[i].prunedSpectralFlux && peakSamples[i+1].prunedSpectralFlux < peakSamples[i].prunedSpectralFlux) {
+                    minionManager.GetComponent<MinionManager>().SpawnMinion(peakSamples[i].time);
+                }
             }
         }
+
         Play(PlayerPrefs.GetString("selectedSong"));
     }
-    void Update() {}
+    void Update() {
+        Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
+        Debug.Log("Music at : " + s.source.time + " s");
+    }
+
+    private bool IsPeakSample(SpectralFluxInfo info) {
+        if (info.isPeak) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public void Play(string name) {
         Sound s = Array.Find(songs, song => song.name == name);
         if (s == null) {
@@ -92,20 +136,7 @@ public class SoundManager : MonoBehaviour
 
     private void GetSpectrumData(float[] samples) {
         try{
-            float[] preProcessedSamples = new float[numOfSamples];
-
-            int numProcessed = 0;
-            float combinedChannelAvg = 0f;
-            for(int i=0; i<samples.Length; i++) {
-                combinedChannelAvg += samples[i];
-
-                // Each time we have processed all channels samples for a point in time, we will store the average of the channels combined
-                if ((i + 1) % channels == 0 ) {
-                    preProcessedSamples[numProcessed] = combinedChannelAvg / channels;
-                    numProcessed++;
-                    combinedChannelAvg = 0f;
-                }
-            }
+            float[] preProcessedSamples = GetOutputData(samples);
 
             Debug.Log("Combine Channels done");
             Debug.Log(preProcessedSamples.Length);
