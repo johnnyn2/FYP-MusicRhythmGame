@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     public void ToGame() {
         SceneManager.LoadScene("songmenu");
+    }
+
+    public void Quit() {
+        Application.Quit();
     }
 }
