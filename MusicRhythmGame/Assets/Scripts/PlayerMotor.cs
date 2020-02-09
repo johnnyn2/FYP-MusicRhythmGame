@@ -11,25 +11,30 @@ public class PlayerMotor : MonoBehaviour
     private float gravity = 12.0f;
     private float animationDuration = 2.0f;
     private float startTime;
-
-    private bool isDead = false;
+    private float timer;
+    private bool isDead;
 
     // Start is called before the first frame update
     void Start()
     {
+        isDead = false;
         controller = GetComponent<CharacterController> ();
-        startTime = Time.time;
+        // startTime = Time.time;
+        startTime = 0f;
+        timer = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
+
         if (isDead) {
             return;
         }
 
         // Disable user controller at the beginning of 2 seconds
-        if (Time.time - startTime < animationDuration) {
+        if (timer - startTime < animationDuration) {
             controller.Move(Vector3.forward * speed * Time.deltaTime);
             return;
         }
@@ -72,7 +77,7 @@ public class PlayerMotor : MonoBehaviour
         Debug.Log("Attack!");
     }
 
-    private void Dead() {
+    public void Dead() {
         isDead = true;
         GetComponent<Score>().OnDeath();
         Debug.Log("Dealth");

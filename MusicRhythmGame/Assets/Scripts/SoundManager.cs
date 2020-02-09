@@ -15,7 +15,7 @@ public class SpecificSpectralFluxInfo {
 public class SoundManager : MonoBehaviour
 {
     public Sound[] songs;
-    private float startTime;
+    private float timer;
     private float animationDuration = 2.0f;
 
     private SpectralFluxAnalyzer preProcessedSpectralFluxAnalyzer;
@@ -37,7 +37,7 @@ public class SoundManager : MonoBehaviour
     }
     
     void Start() {
-        startTime = Time.time;
+        timer = 0f;
         Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
         preProcessedSpectralFluxAnalyzer = new SpectralFluxAnalyzer();
         samplingRate = s.source.clip.frequency;
@@ -81,8 +81,12 @@ public class SoundManager : MonoBehaviour
         Play(PlayerPrefs.GetString("selectedSong"));
     }
     void Update() {
+        timer += Time.deltaTime;
         Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
         Debug.Log("Music at : " + s.source.time + " s");
+        if (timer > (animationDuration + s.clip.length + 2.0f)) {
+            GameObject.Find("Warrior").GetComponent<PlayerMotor>().Dead();
+        }
     }
 
     private bool IsPeakSample(SpectralFluxInfo info) {
@@ -98,18 +102,6 @@ public class SoundManager : MonoBehaviour
             return;
         }
         s.source.PlayDelayed(animationDuration);
-    }
-
-    public bool IsMusicEnding() {
-        Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
-        if (s == null || s.source == null) {
-            return false;
-        }
-        float remainingTime = s.clip.length - (Time.time - startTime); 
-        if (remainingTime < 35.0f) {
-            return true;
-        }
-        return false;
     }
 
     // return data that is of the same format as what’s returned in real-time by
