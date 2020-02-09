@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMotor : MonoBehaviour
 {
     private CharacterController controller;
+    private Animator animator;
     private Vector3 moveVector;
     private float speed = 5.0f;
     private float verticalVelocity = 0.0f;
@@ -25,6 +26,7 @@ public class PlayerMotor : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController> ();
+        animator = GetComponent<Animator> ();
     }
 
     // Update is called once per frame
@@ -52,52 +54,36 @@ public class PlayerMotor : MonoBehaviour
         // recalculate the moveVector
         if (Input.GetButtonDown("First Lane"))
         {
-            if (transform.position.x > firstLane)
-                leftOrRight = -1;
-            else if (transform.position.x < firstLane)
+            if (transform.position.x != firstLane)
                 leftOrRight = 1;
-            else
-                leftOrRight = 0;
             target = firstLane;
             //Debug.Log("First Lane " + moveVector.x);
         }
         if (Input.GetButtonDown("Second Lane"))
         {
-            if (transform.position.x > secondLane)
-                leftOrRight = -1;
-            else if (transform.position.x < secondLane)
+            if (transform.position.x != secondLane)
                 leftOrRight = 1;
-            else
-                leftOrRight = 0;
             target = secondLane;
             //Debug.Log("Second Lane "+ moveVector.x);
         }
         if (Input.GetButtonDown("Third Lane"))
         {
-            if (transform.position.x > thirdLane)
-                leftOrRight = -1;
-            else if (transform.position.x < thirdLane)
+            if (transform.position.x != thirdLane)
                 leftOrRight = 1;
-            else
-                leftOrRight = 0;
             target = thirdLane;      
             //Debug.Log("Third Lane "+ moveVector.x);
         }
         if (Input.GetButtonDown("Forth Lane"))
         {
-            if (transform.position.x > forthLane)
-                leftOrRight = -1;
-            else if (transform.position.x < forthLane)
+            if (transform.position.x != forthLane)
                 leftOrRight = 1;
-            else
-                leftOrRight = 0;
             target = forthLane;
             //Debug.Log("Forth Lane "+ moveVector.x);
         }
         // X - Left and Right
         if(transform.position.x > target-0.1f && transform.position.x < target+0.1f)
             leftOrRight = 0;
-        moveVector.x = leftOrRight * speed;
+        moveVector.x = leftOrRight * (target - transform.position.x) / 0.25f;
         // Y - Up and Down
         moveVector.y = verticalVelocity;
         // Z - Forward and Backward
