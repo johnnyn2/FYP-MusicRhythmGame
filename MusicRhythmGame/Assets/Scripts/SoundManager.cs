@@ -24,6 +24,7 @@ public class SoundManager : MonoBehaviour
     private int numOfSamples;
     private float clipLength;
     private float[] samples;
+    public StatusContainer statusContainer;
 
     // Start is called before the first frame update
     void Awake()
@@ -84,7 +85,11 @@ public class SoundManager : MonoBehaviour
         timer += Time.deltaTime;
         Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
         Debug.Log("Music at : " + s.source.time + " s");
+        if (timer > (animationDuration + s.clip.length)) {
+            statusContainer.ShowStatus();
+        }
         if (timer > (animationDuration + s.clip.length + 2.0f)) {
+            statusContainer.HideStatus();
             GameObject.Find("Warrior").GetComponent<PlayerMotor>().Dead();
         }
     }

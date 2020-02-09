@@ -7,12 +7,13 @@ public class StatusContainer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        HideStatus();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void HideStatus() {
+        gameObject.SetActive(false);
+    }
+    public void ShowStatus() {
+        gameObject.SetActive(true);
     }
 }
