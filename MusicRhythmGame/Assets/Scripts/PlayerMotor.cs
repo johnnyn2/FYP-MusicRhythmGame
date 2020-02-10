@@ -82,7 +82,9 @@ public class PlayerMotor : MonoBehaviour
         }
         // X - Left and Right
         if(transform.position.x > target-0.1f && transform.position.x < target+0.1f)
+        {
             leftOrRight = 0;
+        }
         moveVector.x = leftOrRight * (target - transform.position.x) / 0.25f;
         // Y - Up and Down
         moveVector.y = verticalVelocity;
