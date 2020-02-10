@@ -18,12 +18,9 @@ public class PlayerMotor : MonoBehaviour
     private float target = 0.0f;
 
     private int leftOrRight = 0;
-
-
     private bool isDead = false;
     private float startTime;
     private float timer;
-
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +31,7 @@ public class PlayerMotor : MonoBehaviour
         // startTime = Time.time;
         startTime = 0f;
         timer = 0f;
+        animator.SetInteger("condition", 0);
     }
 
     // Update is called once per frame
@@ -51,57 +49,7 @@ public class PlayerMotor : MonoBehaviour
             return;
         }
 
-        // reset moveVector in every single frame
-        moveVector = Vector3.zero;
-        
-        if (controller.isGrounded) {
-            verticalVelocity = -0.5f;
-        } else {
-            verticalVelocity -= gravity * Time.deltaTime;
-        }
-
-        // recalculate the moveVector
-        if (Input.GetButtonDown("First Lane"))
-        {
-            if (transform.position.x != firstLane)
-                leftOrRight = 1;
-            target = firstLane;
-            //Debug.Log("First Lane " + moveVector.x);
-        }
-        if (Input.GetButtonDown("Second Lane"))
-        {
-            if (transform.position.x != secondLane)
-                leftOrRight = 1;
-            target = secondLane;
-            //Debug.Log("Second Lane "+ moveVector.x);
-        }
-        if (Input.GetButtonDown("Third Lane"))
-        {
-            if (transform.position.x != thirdLane)
-                leftOrRight = 1;
-            target = thirdLane;      
-            //Debug.Log("Third Lane "+ moveVector.x);
-        }
-        if (Input.GetButtonDown("Forth Lane"))
-        {
-            if (transform.position.x != forthLane)
-                leftOrRight = 1;
-            target = forthLane;
-            //Debug.Log("Forth Lane "+ moveVector.x);
-        }
-        // X - Left and Right
-        if(transform.position.x > target-0.1f && transform.position.x < target+0.1f)
-        {
-            leftOrRight = 0;
-        }
-        moveVector.x = leftOrRight * (target - transform.position.x) / 0.25f;
-        // Y - Up and Down
-        moveVector.y = verticalVelocity;
-        // Z - Forward and Backward
-        moveVector.z = speed;
-
-        // move 5 meters per second
-        controller.Move(moveVector * Time.deltaTime);
+        Movement();
     }
 
     public void SetSpeed(float modifier) {
@@ -117,13 +65,62 @@ public class PlayerMotor : MonoBehaviour
         }
     }
 
+    private void Movement(){
+        moveVector = Vector3.zero;
+
+        if (controller.isGrounded)
+        {
+            verticalVelocity = -0.5f;
+        }
+        else
+        {
+            verticalVelocity -= gravity * Time.deltaTime;
+        }
+
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f){
+            //Debug.Log("End Charge "+ ++tempCount + " "+ animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            animator.SetInteger("condition", 0);
+        }
+        //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1.0f);
+        // recalculate the moveVector
+        if (Input.GetButtonDown("First Lane"))
+            target = firstLane;
+        if (Input.GetButtonDown("Second Lane"))
+            target = secondLane;
+        if (Input.GetButtonDown("Third Lane"))
+            target = thirdLane;
+        if (Input.GetButtonDown("Forth Lane"))
+            target = forthLane;
+        // determine the Waarrior is on the Lane or not
+        if (transform.position.x > target - 0.1f && transform.position.x < target + 0.1f)
+        {
+            leftOrRight = 0;
+            if(Input.GetButtonDown("First Lane") || Input.GetButtonDown("Second Lane") || Input.GetButtonDown("Third Lane") || Input.GetButtonDown("Forth Lane"))
+                Attack();
+        }
+        else
+            leftOrRight = 1;
+        // X - Left and Right
+        moveVector.x = leftOrRight * (target - transform.position.x) / 0.15f;
+        // Y - Up and Down
+        moveVector.y = verticalVelocity;
+        // Z - Forward and Backward
+        moveVector.z = speed;
+
+        // move 5 meters per second
+        controller.Move(moveVector * Time.deltaTime);
+    }
     private void Attack() {
-        Debug.Log("Attack!");
+        if (animator.GetInteger("condition") == 0)
+            animator.SetInteger("condition", 1);
+        else
+            animator.Play("Attack", -1, 0f);
     }
 
     public void Dead() {
         isDead = true;
         GetComponent<Score>().OnDeath();
-        Debug.Log("Dealth");
+        Debug.Log("Death");
     }
+
 }
