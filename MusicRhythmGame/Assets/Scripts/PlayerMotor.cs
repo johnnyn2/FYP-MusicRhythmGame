@@ -21,23 +21,32 @@ public class PlayerMotor : MonoBehaviour
 
 
     private bool isDead = false;
+    private float startTime;
+    private float timer;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        isDead = false;
         controller = GetComponent<CharacterController> ();
         animator = GetComponent<Animator> ();
+        // startTime = Time.time;
+        startTime = 0f;
+        timer = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
+
         if (isDead) {
             return;
         }
 
         // Disable user controller at the beginning of 2 seconds
-        if (Time.time < animationDuration) {
+        if (timer - startTime < animationDuration) {
             controller.Move(Vector3.forward * speed * Time.deltaTime);
             return;
         }
@@ -101,9 +110,10 @@ public class PlayerMotor : MonoBehaviour
 
     // it is called when the character hits something
     private void OnControllerColliderHit(ControllerColliderHit hit) {
-        if (hit.point.z > transform.position.z + controller.radius) {
+        if (hit.point.z > transform.position.z + 0.1f && hit.gameObject.tag == "Enemy") {
             // attack minions when the character hits them
-            Dead();
+            Destroy(hit.gameObject);
+            GetComponent<Score>().IncreaseScore();
         }
     }
 
@@ -111,7 +121,7 @@ public class PlayerMotor : MonoBehaviour
         Debug.Log("Attack!");
     }
 
-    private void Dead() {
+    public void Dead() {
         isDead = true;
         GetComponent<Score>().OnDeath();
         Debug.Log("Dealth");

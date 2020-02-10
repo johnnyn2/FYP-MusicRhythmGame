@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    private float score = 0.0f;
+    private int score = 0;
     private int difficultyLevel = 1;
     private int maxDifficultyLevel = 10;
     private int scoreToNextLevel = 10;
@@ -23,10 +23,14 @@ public class Score : MonoBehaviour
         }
 
         if (score >= scoreToNextLevel) {
-            LevelUp();
+            // LevelUp();
         }
-        score += Time.deltaTime * difficultyLevel;
+        // score += Time.deltaTime * difficultyLevel;
         scoreText.text = ((int)score).ToString();
+    }
+
+    public void IncreaseScore() {
+        score++;
     }
 
     void LevelUp() {
@@ -39,12 +43,13 @@ public class Score : MonoBehaviour
         difficultyLevel++;
 
         GetComponent<PlayerMotor>().SetSpeed(difficultyLevel);
-
-        Debug.Log(difficultyLevel);
     }
 
     public void OnDeath() {
         isDead = true;
+        if (PlayerPrefs.GetFloat("Highscore") < score) {
+            PlayerPrefs.SetFloat("Highscore", score); // Set the highest score into Registry
+        }
         deathMenu.ToggleEndMenu(score);
     }
 }
