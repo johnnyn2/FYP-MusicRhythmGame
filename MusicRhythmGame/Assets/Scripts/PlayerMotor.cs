@@ -16,11 +16,12 @@ public class PlayerMotor : MonoBehaviour
     private float thirdLane = 1.66f;
     private float forthLane = 5.0f;
     private float target = 0.0f;
-
-    private int leftOrRight = 0;
-    private bool isDead = false;
     private float startTime;
     private float timer;
+    private int leftOrRight = 0;
+    private bool isDead = false;
+    private bool attacking = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -60,8 +61,15 @@ public class PlayerMotor : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit) {
         if (hit.point.z > transform.position.z + 0.1f && hit.gameObject.tag == "Enemy") {
             // attack minions when the character hits them
-            Destroy(hit.gameObject);
-            GetComponent<Score>().IncreaseScore();
+            if (attacking)
+            {
+                Destroy(hit.gameObject);
+                GetComponent<Score>().IncreaseScore();
+            }
+            else
+            {
+                hit.gameObject.GetComponent<BoxCollider>().isTrigger = true;
+            }
         }
     }
 
@@ -77,9 +85,10 @@ public class PlayerMotor : MonoBehaviour
             verticalVelocity -= gravity * Time.deltaTime;
         }
 
-        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f){
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f){
             //Debug.Log("End Charge "+ ++tempCount + " "+ animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
             animator.SetInteger("condition", 0);
+            attacking = false;
         }
         //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1.0f);
         // recalculate the moveVector
@@ -92,11 +101,12 @@ public class PlayerMotor : MonoBehaviour
         if (Input.GetButtonDown("Forth Lane"))
             target = forthLane;
         // determine the Waarrior is on the Lane or not
-        if (transform.position.x > target - 0.1f && transform.position.x < target + 0.1f)
+        if (transform.position.x > target - 0.2f && transform.position.x < target + 0.2f)
         {
-            leftOrRight = 0;
             if(Input.GetButtonDown("First Lane") || Input.GetButtonDown("Second Lane") || Input.GetButtonDown("Third Lane") || Input.GetButtonDown("Forth Lane"))
                 Attack();
+            if (transform.position.x > target - 0.1f && transform.position.x < target + 0.1f)
+                leftOrRight = 0;
         }
         else
             leftOrRight = 1;
@@ -113,8 +123,8 @@ public class PlayerMotor : MonoBehaviour
     private void Attack() {
         if (animator.GetInteger("condition") == 0)
             animator.SetInteger("condition", 1);
-        else
-            animator.Play("Attack", -1, 0f);
+        animator.Play("Attack", -1, 0f);
+        attacking = true;
     }
 
     public void Dead() {

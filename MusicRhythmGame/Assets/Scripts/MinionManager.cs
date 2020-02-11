@@ -24,10 +24,11 @@ public class MinionManager : MonoBehaviour
 
     public void SpawnMinion(float z) {
         GameObject go;
+        float[] spawnPos = {-5.0f, -1.66f, 1.66f, 5.0f};
         go = Instantiate(minionPrefabs[0]) as GameObject;
         go.transform.SetParent(transform);
         // 0.5f is half of the z of the minion
-        go.transform.position = new Vector3(Random.Range(-1, 2), 1, z * speed + tileLength + 0.5f);
+        go.transform.position = new Vector3(spawnPos[Random.Range(0, 4)], 1, z * speed + tileLength + 0.5f);
         activeMinions.Add(go);
     }
 
