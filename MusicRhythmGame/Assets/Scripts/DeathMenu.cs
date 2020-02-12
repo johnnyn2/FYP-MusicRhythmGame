@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class DeathMenu : MonoBehaviour
 {
-    public Text scoreText;
+    public TextMeshProUGUI scoreText;
     public Image backgroundImg;
     private bool isShown = false;
     private float transition = 0.0f;
@@ -30,7 +31,7 @@ public class DeathMenu : MonoBehaviour
 
     public void ToggleEndMenu(float score) {
         gameObject.SetActive(true);
-        scoreText.text = ((int)score).ToString();
+        scoreText.text = ((int)score).ToString() + " hit";
         isShown = true;
     }
 
