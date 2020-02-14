@@ -21,14 +21,14 @@ public class MinionManager : MonoBehaviour
 
     // Update is called once per frame
     void Update() {}
-
     public void SpawnMinion(float z) {
         GameObject go;
         float[] spawnPos = {-5.0f, -1.66f, 1.66f, 5.0f};
-        go = Instantiate(minionPrefabs[0]) as GameObject;
+        go = Instantiate(minionPrefabs[RandomPrefabIndex()]) as GameObject;
         go.transform.SetParent(transform);
         // 0.5f is half of the z of the minion
         go.transform.position = new Vector3(spawnPos[Random.Range(0, 4)], 1, z * speed + tileLength + 0.5f);
+        go.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         activeMinions.Add(go);
     }
 
@@ -44,4 +44,5 @@ public class MinionManager : MonoBehaviour
         lastPrefabIndex = randomIndex;
         return randomIndex;
     }
+
 }
