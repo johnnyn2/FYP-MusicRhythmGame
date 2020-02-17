@@ -21,7 +21,9 @@ public class PlayerMotor : MonoBehaviour
     private int leftOrRight = 0;
     private bool isDead = false;
     private bool attacking = false;
-    
+
+    public bool Attacking { get => attacking; set => attacking = value; }
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,16 +61,18 @@ public class PlayerMotor : MonoBehaviour
 
     // it is called when the character hits something
     private void OnControllerColliderHit(ControllerColliderHit hit) {
-        if (hit.point.z > transform.position.z + 0.1f && hit.gameObject.tag == "Enemy") {
+        if (hit.gameObject.tag == "Enemy") {
             // attack minions when the character hits them
-            if (attacking)
+            Animator minAnim = hit.gameObject.GetComponent<Animator>();
+            if (Attacking)
             {
-                Destroy(hit.gameObject);
+                minAnim.SetBool("isDead", true);
                 GetComponent<Score>().IncreaseScore();
             }
             else
             {
                 hit.gameObject.GetComponent<BoxCollider>().isTrigger = true;
+                minAnim.SetBool("isAttack", true);
             }
         }
     }
@@ -88,7 +92,7 @@ public class PlayerMotor : MonoBehaviour
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f){
             //Debug.Log("End Charge "+ ++tempCount + " "+ animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
             animator.SetInteger("condition", 0);
-            attacking = false;
+            Attacking = false;
         }
         //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1.0f);
         // recalculate the moveVector
@@ -124,7 +128,7 @@ public class PlayerMotor : MonoBehaviour
         if (animator.GetInteger("condition") == 0)
             animator.SetInteger("condition", 1);
         animator.Play("Attack", -1, 0f);
-        attacking = true;
+        Attacking = true;
     }
 
     public void Dead() {

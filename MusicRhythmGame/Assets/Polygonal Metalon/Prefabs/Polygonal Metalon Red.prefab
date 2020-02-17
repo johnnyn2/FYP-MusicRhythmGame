@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 4444695180855720}
   - component: {fileID: 95025375702580604}
   - component: {fileID: 8459094841295504781}
+  - component: {fileID: -2385727903849092208}
   m_Layer: 0
   m_Name: Polygonal Metalon Red
   m_TagString: Enemy
@@ -151,7 +152,7 @@ Animator:
   m_GameObject: {fileID: 1128758269040250}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 66ca9bf0145725543a1e8a693589f362, type: 3}
-  m_Controller: {fileID: 9100000, guid: e761ace889a78a946967af8d6890f71d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9547c90217af45d4dbf9bf687ebd15cd, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -173,6 +174,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.6979458, y: 1.9861851, z: 3.7795115}
   m_Center: {x: 0.10895288, y: 0.9530926, z: -0.08510679}
+--- !u!114 &-2385727903849092208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128758269040250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb444a3f38cb0fb458afee01008ec12d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warriror: {fileID: 1981185478665515068, guid: fe8329bc03d0c1a49b53e3c2ab430f9f,
+    type: 3}
 --- !u!1 &1130806907750044
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +333,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1236971796621534}
-  m_LocalRotation: {x: -0.14529927, y: -0.69201744, z: 0.1452994, w: 0.6920175}
+  m_LocalRotation: {x: -0.14529927, y: -0.6920174, z: 0.1452994, w: 0.69201744}
   m_LocalPosition: {x: -0.000000052145573, y: 0.4358183, z: -1.1929562}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 1}
   m_Children: []
@@ -1499,7 +1514,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1902705309870586}
-  m_LocalRotation: {x: -0.3464576, y: -0.34599742, z: 0.83186495, w: -0.2612538}
+  m_LocalRotation: {x: -0.34645763, y: -0.34599745, z: 0.831865, w: -0.26125383}
   m_LocalPosition: {x: 0.060657557, y: 0.5691982, z: 0.43555304}
   m_LocalScale: {x: 0.99999994, y: 1, z: 0.99999994}
   m_Children:

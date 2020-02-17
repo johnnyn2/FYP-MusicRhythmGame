@@ -1113,6 +1113,7 @@ GameObject:
   - component: {fileID: 4215789226532830}
   - component: {fileID: 95319451835724688}
   - component: {fileID: 1056865359444511733}
+  - component: {fileID: -5741864002731377467}
   m_Layer: 0
   m_Name: Polygonal Metalon Green
   m_TagString: Enemy
@@ -1162,7 +1163,7 @@ Animator:
   m_GameObject: {fileID: 1783563462218004}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 66ca9bf0145725543a1e8a693589f362, type: 3}
-  m_Controller: {fileID: 9100000, guid: e761ace889a78a946967af8d6890f71d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9547c90217af45d4dbf9bf687ebd15cd, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1184,6 +1185,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.6979458, y: 1.9861851, z: 3.7795115}
   m_Center: {x: 0.10895288, y: 0.9530926, z: -0.08510679}
+--- !u!114 &-5741864002731377467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783563462218004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb444a3f38cb0fb458afee01008ec12d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warriror: {fileID: 1981185478665515068, guid: fe8329bc03d0c1a49b53e3c2ab430f9f,
+    type: 3}
 --- !u!1 &1804318802084684
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,6 +28,7 @@ public class MinionManager : MonoBehaviour
         go.transform.SetParent(transform);
         // 0.5f is half of the z of the minion
         go.transform.position = new Vector3(spawnPos[Random.Range(0, 4)], 1, z * speed + tileLength + 0.5f);
+        go.transform.localEulerAngles = new Vector3(0.0f, 180f, 0.0f);
         go.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         activeMinions.Add(go);
     }
