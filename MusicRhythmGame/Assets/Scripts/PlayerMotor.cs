@@ -64,6 +64,7 @@ public class PlayerMotor : MonoBehaviour
         if (hit.gameObject.tag == "Enemy") {
             // attack minions when the character hits them
             Animator minAnim = hit.gameObject.GetComponent<Animator>();
+            hit.gameObject.GetComponent<BoxCollider>().isTrigger = true;
             if (Attacking)
             {
                 minAnim.SetBool("isDead", true);
@@ -71,7 +72,6 @@ public class PlayerMotor : MonoBehaviour
             }
             else
             {
-                hit.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 minAnim.SetBool("isAttack", true);
             }
         }
