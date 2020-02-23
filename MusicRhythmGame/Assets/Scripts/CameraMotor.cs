@@ -18,7 +18,7 @@ public class CameraMotor : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         moveVector = lookAt.position + startOffset;
 

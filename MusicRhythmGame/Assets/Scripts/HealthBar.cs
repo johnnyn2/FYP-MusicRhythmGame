@@ -21,7 +21,7 @@ public class HealthBar : MonoBehaviour
         health = health - damage;
         healthBar.fillAmount = health / startHealth;
         if (health <= 0) {
-            GameObject.Find("Warrior").GetComponent<PlayerMotor>().Dead();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().Dead();
         }
     }
 }

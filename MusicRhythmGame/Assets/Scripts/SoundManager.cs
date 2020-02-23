@@ -84,7 +84,7 @@ public class SoundManager : MonoBehaviour
     void Update() {
         timer += Time.deltaTime;
         Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
-        Debug.Log("Music at : " + s.source.time + " s");
+        //Debug.Log("Music at : " + s.source.time + " s");
         if (timer > (animationDuration + s.clip.length)) {
             statusContainer.ShowStatus();
         }
