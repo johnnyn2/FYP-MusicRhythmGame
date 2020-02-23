@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Score : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Score : MonoBehaviour
     
     private bool isDead = false;
 
-    public Text scoreText;
+    public TextMeshProUGUI scoreText;
     public DeathMenu deathMenu;
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class Score : MonoBehaviour
             // LevelUp();
         }
         // score += Time.deltaTime * difficultyLevel;
-        scoreText.text = ((int)score).ToString();
+        scoreText.text = ((int)score).ToString() + " hit";
     }
 
     public void IncreaseScore() {

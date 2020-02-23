@@ -5,10 +5,13 @@ using UnityEngine;
 public class MinionManager : MonoBehaviour
 {
     public GameObject[] minionPrefabs;
+
+    public GameObject healthBar;
     private int lastPrefabIndex = 0;
     private Transform playerTransform;
     private float spawnZ = 15.0f; // where exactly in Z should we spawn this object
     private List<GameObject> activeMinions = new List<GameObject>();
+    private int escapedMinion = 0;
     private const float tileLength = 10.0f;
     private float safeZone = 15.0f; // within the safe zone, the tiles won't be deleted
     private int amnTilesOnScreen = 10; // number of tiles on screen at most
@@ -20,7 +23,23 @@ public class MinionManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() {}
+    void Update() {
+        CalculateEscapedMinion();
+    }
+
+    private void CalculateEscapedMinion() {
+        int currentEscapedMinion = 0;
+        for(int i =0 ; i < activeMinions.Count; i++) {
+            if (activeMinions[i] && activeMinions[i].transform.position.z < playerTransform.position.z) {
+                currentEscapedMinion++;
+            }
+        }
+        if (currentEscapedMinion != escapedMinion) {
+            healthBar.GetComponent<HealthBar>().OnTakeDamage(10);
+            escapedMinion = currentEscapedMinion;
+        }
+    }
+
     public void SpawnMinion(float z) {
         GameObject go;
         float[] spawnPos = {-5.0f, -1.66f, 1.66f, 5.0f};
