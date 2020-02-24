@@ -11,6 +11,7 @@ public class MinionManager : MonoBehaviour
     private Transform playerTransform;
     private float spawnZ = 15.0f; // where exactly in Z should we spawn this object
     private List<GameObject> activeMinions = new List<GameObject>();
+    private int minionPtr = 21;
     private int escapedMinion = 0;
     private const float tileLength = 10.0f;
     private float safeZone = 15.0f; // within the safe zone, the tiles won't be deleted
@@ -28,14 +29,21 @@ public class MinionManager : MonoBehaviour
     }
 
     private void CalculateEscapedMinion() {
+        GameObject soundManager = GameObject.Find("SoundManager");
+        List<SpectralFluxInfo> peakOfPeakSamples = soundManager.GetComponent<SoundManager>().peakOfPeakSamples;
         int currentEscapedMinion = 0;
         for(int i =0 ; i < activeMinions.Count; i++) {
-            if (activeMinions[i] && activeMinions[i].transform.position.z < playerTransform.position.z) {
+            if (activeMinions[i] && (activeMinions[i].transform.position.z + 3.0f) < playerTransform.position.z) {
                 currentEscapedMinion++;
+                Destroy(activeMinions[i]);
+                if (minionPtr<peakOfPeakSamples.Count) {
+                    SpawnMinion(peakOfPeakSamples[minionPtr].time);
+                    minionPtr++;
+                }
             }
         }
         if (currentEscapedMinion != escapedMinion) {
-            healthBar.GetComponent<HealthBar>().OnTakeDamage(10);
+            // healthBar.GetComponent<HealthBar>().OnTakeDamage(10);
             escapedMinion = currentEscapedMinion;
         }
     }

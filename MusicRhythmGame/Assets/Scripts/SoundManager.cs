@@ -19,6 +19,7 @@ public class SoundManager : MonoBehaviour
     private float animationDuration = 2.0f;
 
     private SpectralFluxAnalyzer preProcessedSpectralFluxAnalyzer;
+    public List<SpectralFluxInfo> peakOfPeakSamples;
     private float samplingRate;
     private int channels;
     private int numOfSamples;
@@ -51,33 +52,13 @@ public class SoundManager : MonoBehaviour
         s.source.clip.GetData(samples, 0);
         GetSpectrumData(samples);
 
-        GameObject minionManager = GameObject.Find("MinionManager");
         Debug.Log("samples length: " + samples.Length);
         Debug.Log("flux samples length: " + preProcessedSpectralFluxAnalyzer.spectralFluxSamples.Count);
         List<SpectralFluxInfo> peakSamples =  preProcessedSpectralFluxAnalyzer.spectralFluxSamples.FindAll(IsPeakSample);
         Debug.Log("Peak Samples Length: " + peakSamples.Count);
-        for(int i=0;i<peakSamples.Count;i++) {
-            Debug.Log(String.Format("Spectral flux: {0}, threshold: {1}, prunedSpectralFlux: {2}, time: {3}",
-                peakSamples[i].spectralFlux,
-                peakSamples[i].threshold,
-                peakSamples[i].prunedSpectralFlux,
-                peakSamples[i].time
-            ));
-            // Find the main beat from a set of beats
-            if (i==0) {
-                if (peakSamples[0].prunedSpectralFlux > peakSamples[1].prunedSpectralFlux) {
-                    minionManager.GetComponent<MinionManager>().SpawnMinion(peakSamples[i].time);
-                }
-            } else if (i== peakSamples.Count-1) {
-                if (peakSamples[i].prunedSpectralFlux > peakSamples[i-1].prunedSpectralFlux) {
-                    minionManager.GetComponent<MinionManager>().SpawnMinion(peakSamples[i].time);
-                }
-            } else {
-                if (peakSamples[i-1].prunedSpectralFlux < peakSamples[i].prunedSpectralFlux && peakSamples[i+1].prunedSpectralFlux < peakSamples[i].prunedSpectralFlux) {
-                    minionManager.GetComponent<MinionManager>().SpawnMinion(peakSamples[i].time);
-                }
-            }
-        }
+        peakOfPeakSamples = new List<SpectralFluxInfo>();
+        GetPeakOfPeakSamples(peakSamples);
+        InitializeMinions();
 
         Play(PlayerPrefs.GetString("selectedSong"));
     }
@@ -90,7 +71,7 @@ public class SoundManager : MonoBehaviour
         }
         if (timer > (animationDuration + s.clip.length + 2.0f)) {
             statusContainer.HideStatus();
-            GameObject.Find("Warrior").GetComponent<PlayerMotor>().Dead();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().Dead();
         }
     }
 
@@ -101,6 +82,39 @@ public class SoundManager : MonoBehaviour
             return false;
         }
     }
+
+    private void GetPeakOfPeakSamples(List<SpectralFluxInfo> peakSamples) {
+        for(int i=0;i<peakSamples.Count;i++) {
+            // Debug.Log(String.Format("Spectral flux: {0}, threshold: {1}, prunedSpectralFlux: {2}, time: {3}",
+            //     peakSamples[i].spectralFlux,
+            //     peakSamples[i].threshold,
+            //     peakSamples[i].prunedSpectralFlux,
+            //     peakSamples[i].time
+            // ));
+            // Find the main beat from a set of beats
+            if (i==0) {
+                if (peakSamples[0].prunedSpectralFlux > peakSamples[1].prunedSpectralFlux) {
+                    peakOfPeakSamples.Add(peakSamples[i]);
+                }
+            } else if (i== peakSamples.Count-1) {
+                if (peakSamples[i].prunedSpectralFlux > peakSamples[i-1].prunedSpectralFlux) {
+                    peakOfPeakSamples.Add(peakSamples[i]);
+                }
+            } else {
+                if (peakSamples[i-1].prunedSpectralFlux < peakSamples[i].prunedSpectralFlux && peakSamples[i+1].prunedSpectralFlux < peakSamples[i].prunedSpectralFlux) {
+                    peakOfPeakSamples.Add(peakSamples[i]);
+                }
+            }
+        }
+    }
+
+    private void InitializeMinions() {
+        GameObject minionManager = GameObject.Find("MinionManager");
+        for(int i=0;i<20;i++) {
+             minionManager.GetComponent<MinionManager>().SpawnMinion(peakOfPeakSamples[i].time);
+        }
+    }
+
     public void Play(string name) {
         Sound s = Array.Find(songs, song => song.name == name);
         if (s == null) {
