@@ -40,24 +40,8 @@ public class SoundManager : MonoBehaviour
     
     void Start() {
         timer = 0f;
-        Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
-        preProcessedSpectralFluxAnalyzer = new SpectralFluxAnalyzer();
-        samplingRate = s.source.clip.frequency;
-        channels = s.source.clip.channels;
-        numOfSamples = s.source.clip.samples;
-        clipLength = s.source.clip.length;
-        Debug.Log("clip length: " + clipLength);
-        samples = new float[s.source.clip.samples * s.source.clip.channels];
-        // the sample data is stored as [L, R, L, R, L, R, ...] in the array
-        s.source.clip.GetData(samples, 0);
-        GetSpectrumData(samples);
-
-        Debug.Log("samples length: " + samples.Length);
-        Debug.Log("flux samples length: " + preProcessedSpectralFluxAnalyzer.spectralFluxSamples.Count);
-        List<SpectralFluxInfo> peakSamples =  preProcessedSpectralFluxAnalyzer.spectralFluxSamples.FindAll(IsPeakSample);
-        Debug.Log("Peak Samples Length: " + peakSamples.Count);
         peakOfPeakSamples = new List<SpectralFluxInfo>();
-        GetPeakOfPeakSamples(peakSamples);
+        BpmAnalysis();
         InitializeMinions();
 
         Play(PlayerPrefs.GetString("selectedSong"));
@@ -74,6 +58,51 @@ public class SoundManager : MonoBehaviour
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().Dead();
         }
     }
+
+    private void BpmAnalysis() {
+        Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
+        int bpm = GetBpm(PlayerPrefs.GetString("selectedSong"));
+        Debug.Log("BPM: " + bpm);
+        float totalNumOfBeats = s.clip.length / 60 * bpm;
+        Debug.Log("totalNumOfBeats: " + totalNumOfBeats);
+        float interval = s.clip.length / totalNumOfBeats;
+        Debug.Log("interval: " + interval);
+        for(float i=1.0f;i<=totalNumOfBeats;i+=1.0f) {
+            SpectralFluxInfo info = new SpectralFluxInfo();
+            info.time = interval * i;
+            peakOfPeakSamples.Add(info);
+        }
+    }
+
+    private int GetBpm(String song) {
+        switch(song) {
+            case "faded":
+                return 90;
+            case "theFatRat":
+                return 90;
+            default: return 90;
+        }
+    }
+
+    private void SpectralFluxAnalysis() {
+        Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
+        preProcessedSpectralFluxAnalyzer = new SpectralFluxAnalyzer();
+        samplingRate = s.source.clip.frequency;
+        channels = s.source.clip.channels;
+        numOfSamples = s.source.clip.samples;
+        clipLength = s.source.clip.length;
+        Debug.Log("clip length: " + clipLength);
+        samples = new float[s.source.clip.samples * s.source.clip.channels];
+        // the sample data is stored as [L, R, L, R, L, R, ...] in the array
+        s.source.clip.GetData(samples, 0);
+        GetSpectrumData(samples);
+
+        Debug.Log("samples length: " + samples.Length);
+        Debug.Log("flux samples length: " + preProcessedSpectralFluxAnalyzer.spectralFluxSamples.Count);
+        List<SpectralFluxInfo> peakSamples =  preProcessedSpectralFluxAnalyzer.spectralFluxSamples.FindAll(IsPeakSample);
+        Debug.Log("Peak Samples Length: " + peakSamples.Count);
+        GetPeakOfPeakSamples(peakSamples);
+    } 
 
     private bool IsPeakSample(SpectralFluxInfo info) {
         if (info.isPeak) {
