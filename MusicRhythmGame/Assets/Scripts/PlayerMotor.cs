@@ -10,7 +10,7 @@ public class PlayerMotor : MonoBehaviour
     private float speed = 5.0f;
     private float verticalVelocity = 0.0f;
     private float gravity = 12.0f;
-    private float animationDuration = 2.0f;
+    private float animationDuration = 2.5f;
     private float firstLane = -5.0f;
     private float secondLane = -1.66f;
     private float thirdLane = 1.66f;
@@ -50,9 +50,9 @@ public class PlayerMotor : MonoBehaviour
         if (timer - startTime < animationDuration) {
             controller.Move(Vector3.forward * speed * Time.deltaTime);
             return;
+        } else {
+            Movement();
         }
-
-        Movement();
     }
 
     public void SetSpeed(float modifier) {
@@ -78,6 +78,10 @@ public class PlayerMotor : MonoBehaviour
     }
 
     private void Movement(){
+        if (timer - startTime < animationDuration)
+        {
+            Debug.Log("time:"+ timer);
+        }
         moveVector = Vector3.zero;
 
         if (controller.isGrounded)
@@ -98,11 +102,11 @@ public class PlayerMotor : MonoBehaviour
         // recalculate the moveVector
         if (Input.GetButtonDown("First Lane"))
             target = firstLane;
-        if (Input.GetButtonDown("Second Lane"))
+        else if (Input.GetButtonDown("Second Lane"))
             target = secondLane;
-        if (Input.GetButtonDown("Third Lane"))
+        else if (Input.GetButtonDown("Third Lane"))
             target = thirdLane;
-        if (Input.GetButtonDown("Forth Lane"))
+        else if (Input.GetButtonDown("Forth Lane"))
             target = forthLane;
         // determine the Waarrior is on the Lane or not
         if (transform.position.x > target - 0.2f && transform.position.x < target + 0.2f)
