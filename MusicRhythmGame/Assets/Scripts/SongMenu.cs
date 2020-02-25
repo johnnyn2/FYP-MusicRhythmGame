@@ -17,7 +17,8 @@ public class SongMenu : MonoBehaviour
 
     public void ToGame(string song) {
         PlayerPrefs.SetString("selectedSong", song);
-        StartCoroutine(LoadAsynchronously());
+        SceneManager.LoadScene("game");
+        // StartCoroutine(LoadAsynchronously());
     }
 
     IEnumerator LoadAsynchronously() {
