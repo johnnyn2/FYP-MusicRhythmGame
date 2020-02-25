@@ -49,11 +49,11 @@ public class SoundManager : MonoBehaviour
     void Update() {
         timer += Time.deltaTime;
         Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
-        //Debug.Log("Music at : " + s.source.time + " s");
+        Debug.Log("Music at : " + s.source.time + " s");
         if (timer > (animationDuration + s.clip.length)) {
             statusContainer.ShowStatus();
         }
-        if (timer > (animationDuration + s.clip.length + 2.0f)) {
+        if (timer > (animationDuration + s.clip.length + 5.0f)) {
             statusContainer.HideStatus();
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().Dead();
         }
@@ -67,9 +67,10 @@ public class SoundManager : MonoBehaviour
         Debug.Log("totalNumOfBeats: " + totalNumOfBeats);
         float interval = s.clip.length / totalNumOfBeats;
         Debug.Log("interval: " + interval);
-        for(float i=1.0f;i<=totalNumOfBeats;i+=1.0f) {
+        for(float i=1.0f;i<=totalNumOfBeats - 5.0f;i+=1.0f) {
             SpectralFluxInfo info = new SpectralFluxInfo();
             info.time = interval * i;
+            Debug.Log("Time interval: " + info.time);
             peakOfPeakSamples.Add(info);
         }
     }
