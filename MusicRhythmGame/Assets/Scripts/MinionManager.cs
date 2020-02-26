@@ -5,18 +5,13 @@ using UnityEngine;
 public class MinionManager : MonoBehaviour
 {
     public GameObject[] minionPrefabs;
-
-    public GameObject healthBar;
     private int lastPrefabIndex = 0;
     private Transform playerTransform;
-    private float spawnZ = 15.0f; // where exactly in Z should we spawn this object
     private List<GameObject> activeMinions = new List<GameObject>();
-    private int minionPtr = 21;
-    private int escapedMinion = 0;
+    public int minionPtr = 20;
     private const float tileLength = 10.0f;
-    private float safeZone = 15.0f; // within the safe zone, the tiles won't be deleted
-    private int amnTilesOnScreen = 10; // number of tiles on screen at most
     private float speed = 5.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,29 +19,7 @@ public class MinionManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() {
-        CalculateEscapedMinion();
-    }
-
-    private void CalculateEscapedMinion() {
-        GameObject soundManager = GameObject.Find("SoundManager");
-        List<SpectralFluxInfo> peakOfPeakSamples = soundManager.GetComponent<SoundManager>().peakOfPeakSamples;
-        int currentEscapedMinion = 0;
-        for(int i =0 ; i < activeMinions.Count; i++) {
-            if (activeMinions[i] && (activeMinions[i].transform.position.z + 3.0f) < playerTransform.position.z) {
-                currentEscapedMinion++;
-                Destroy(activeMinions[i]);
-                if (minionPtr<peakOfPeakSamples.Count) {
-                    SpawnMinion(peakOfPeakSamples[minionPtr].time);
-                    minionPtr++;
-                }
-            }
-        }
-        if (currentEscapedMinion != escapedMinion) {
-            // healthBar.GetComponent<HealthBar>().OnTakeDamage(10);
-            escapedMinion = currentEscapedMinion;
-        }
-    }
+    void Update() {}
 
     public void SpawnMinion(float z) {
         GameObject go;
