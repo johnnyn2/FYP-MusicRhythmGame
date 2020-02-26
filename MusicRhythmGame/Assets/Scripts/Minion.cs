@@ -33,8 +33,20 @@ public class Minion : MonoBehaviour
         if(gameObject.transform.position.z <= Player.transform.position.z && !anim.GetBool("isDead") && !anim.GetBool("isAttack")){
             anim.SetBool("isAttack", true);
         }
-        if(gameObject.transform.position.z <= Player.transform.position.z-6.0f)
+        if(gameObject.transform.position.z <= Player.transform.position.z-6.0f) {
+            GameObject healthBar = GameObject.FindGameObjectWithTag("HealthBarBg");
+            if (!anim.GetBool("isDead")) {
+                healthBar.GetComponent<HealthBar>().OnTakeDamage(10);
+            }
+            GameObject soundManager = GameObject.Find("SoundManager");
+            List<SpectralFluxInfo> peakOfPeakSamples = soundManager.GetComponent<SoundManager>().peakOfPeakSamples;
+            MinionManager minionManager = GameObject.Find("MinionManager").GetComponent<MinionManager>();
+            if (minionManager.minionPtr<peakOfPeakSamples.Count) {
+                minionManager.SpawnMinion(peakOfPeakSamples[minionManager.minionPtr].time);
+                minionManager.minionPtr++;
+            }
             Destroy(gameObject);
+        }
     }
 
     // void OnBecameInvisible(){

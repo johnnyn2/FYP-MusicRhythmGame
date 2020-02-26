@@ -6,7 +6,7 @@ using TMPro;
 
 public class Score : MonoBehaviour
 {
-    private int score = 0;
+    public int score = 0;
     private int difficultyLevel = 1;
     private int maxDifficultyLevel = 10;
     private int scoreToNextLevel = 10;
