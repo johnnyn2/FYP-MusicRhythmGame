@@ -43,7 +43,7 @@ public class MinionManager : MonoBehaviour
             }
         }
         if (currentEscapedMinion != escapedMinion) {
-            // healthBar.GetComponent<HealthBar>().OnTakeDamage(10);
+            healthBar.GetComponent<HealthBar>().OnTakeDamage(10);
             escapedMinion = currentEscapedMinion;
         }
     }
