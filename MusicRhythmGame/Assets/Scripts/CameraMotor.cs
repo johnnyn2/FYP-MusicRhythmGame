@@ -25,7 +25,7 @@ public class CameraMotor : MonoBehaviour
         // X
         moveVector.x = 0;
         // Y
-        moveVector.y = Mathf.Clamp(moveVector.y, 3, 5);
+        // moveVector.y = Mathf.Clamp(moveVector.y, 3, 5);
 
         if (transition > 1.0f) {
             transform.position = moveVector;
