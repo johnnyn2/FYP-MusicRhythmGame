@@ -3,13 +3,35 @@ using UnityEngine;
 using System.Numerics;
 using System.Collections.Generic;
 using DSPLib;
+using System.IO;
 
-public class SpecificSpectralFluxInfo {
-	public int time;
-	public float spectralFlux;
-	public float threshold;
-	public float prunedSpectralFlux;
-	public bool isPeak;
+public static class JsonHelper
+{
+    public static T[] FromJson<T>(string json)
+    {
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
+        return wrapper.Items;
+    }
+
+    public static string ToJson<T>(T[] array)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.Items = array;
+        return JsonUtility.ToJson(wrapper);
+    }
+
+    public static string ToJson<T>(T[] array, bool prettyPrint)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.Items = array;
+        return JsonUtility.ToJson(wrapper, prettyPrint);
+    }
+
+    [Serializable]
+    private class Wrapper<T>
+    {
+        public T[] Items;
+    }
 }
 
 public class SoundManager : MonoBehaviour
@@ -41,10 +63,18 @@ public class SoundManager : MonoBehaviour
     void Start() {
         timer = 0f;
         peakOfPeakSamples = new List<SpectralFluxInfo>();
-        BpmAnalysis();
-        InitializeMinions();
+        if (PlayerPrefs.GetString("mode") == "beat") {
+            BpmAnalysis();
+            InitializeMinions();
+            Play(PlayerPrefs.GetString("selectedSong"));
+        } else if (PlayerPrefs.GetString("mode") == "onset") {
+            ReadOnsetJson();
+            InitializeMinions();
+            Play(PlayerPrefs.GetString("selectedSong"));
+        }
 
-        Play(PlayerPrefs.GetString("selectedSong"));
+        // This is to output the json recording of onset data. Do this when you added a new song.
+        // SpectralFluxAnalysis();
     }
     void Update() {
         timer += Time.deltaTime;
@@ -103,6 +133,8 @@ public class SoundManager : MonoBehaviour
         List<SpectralFluxInfo> peakSamples =  preProcessedSpectralFluxAnalyzer.spectralFluxSamples.FindAll(IsPeakSample);
         Debug.Log("Peak Samples Length: " + peakSamples.Count);
         GetPeakOfPeakSamples(peakSamples);
+        Debug.Log("Peak of peak samples length: " + peakOfPeakSamples.Count);
+        OutputOnsetJson();
     } 
 
     private bool IsPeakSample(SpectralFluxInfo info) {
@@ -229,5 +261,24 @@ public class SoundManager : MonoBehaviour
     public float getTimeFromIndex(int index)
     {
         return ((1f / (float)samplingRate) * index);
+    }
+
+    private void OutputOnsetJson() {
+        SpectralFluxInfo[] info = peakOfPeakSamples.ToArray();
+        string peakOfPeakSamplesJson = JsonHelper.ToJson(info);
+        string path = Application.dataPath + "Resources/Json/" + PlayerPrefs.GetString("selectedSong") + ".json";
+        File.WriteAllText(path, peakOfPeakSamplesJson);
+        Debug.Log("Output is done!");
+    }
+
+    private void ReadOnsetJson() {
+        // string path = Application.dataPath + "/Json/" + PlayerPrefs.GetString("selectedSong") + ".json";
+        // string json = File.ReadAllText(path);
+        string path = "Json/" + PlayerPrefs.GetString("selectedSong");
+        string json = Resources.Load<TextAsset>(path).ToString();
+        SpectralFluxInfo[] info = JsonHelper.FromJson<SpectralFluxInfo>(json);
+        for(int i=0;i<info.Length;i++) {
+            peakOfPeakSamples.Add(info[i]);
+        }
     }
 }
