@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class SpectralFluxInfo {
 	public float time;
 	public float spectralFlux;
