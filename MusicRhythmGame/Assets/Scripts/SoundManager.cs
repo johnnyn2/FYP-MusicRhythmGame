@@ -266,7 +266,7 @@ public class SoundManager : MonoBehaviour
     private void OutputOnsetJson() {
         SpectralFluxInfo[] info = peakOfPeakSamples.ToArray();
         string peakOfPeakSamplesJson = JsonHelper.ToJson(info);
-        string path = Application.dataPath + "/Json/" + PlayerPrefs.GetString("selectedSong") + ".json";
+        string path = Application.dataPath + "Resources/Json/" + PlayerPrefs.GetString("selectedSong") + ".json";
         File.WriteAllText(path, peakOfPeakSamplesJson);
         Debug.Log("Output is done!");
     }
