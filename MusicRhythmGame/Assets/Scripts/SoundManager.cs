@@ -172,7 +172,7 @@ public class SoundManager : MonoBehaviour
 
     private void InitializeMinions() {
         GameObject minionManager = GameObject.Find("MinionManager");
-        for(int i=0;i<20;i++) {
+        for(int i=0;i<21;i++) {
              minionManager.GetComponent<MinionManager>().SpawnMinion(peakOfPeakSamples[i].time);
         }
     }
