@@ -37,9 +37,8 @@ public class Shop : MonoBehaviour
             //  - Sprite (Image)
             //  - Boarder (Image)
             //  - cost (TextMeshProUGUI)
-            //  - SoldOut (Image)
 
-            if(si.isSold)
+            if(PlayerPrefs.GetString(si.itemName).Equals("true"))
             {
                 itemObject.GetComponent<Button>().interactable = false;
                 itemObject.transform.GetChild(1).gameObject.SetActive(false);
@@ -60,6 +59,6 @@ public class Shop : MonoBehaviour
 
     private void OnButtonClick(ShopItem item)
     {
-        
+        Debug.Log(item.itemName);
     }
 }
