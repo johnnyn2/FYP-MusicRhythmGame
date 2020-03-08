@@ -10,6 +10,9 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("songmenu");
     }
 
+    public void ToStore() {
+        SceneManager.LoadScene("Shop");
+    }
     public void Quit() {
         Application.Quit();
     }

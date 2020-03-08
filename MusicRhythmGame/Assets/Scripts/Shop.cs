@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
@@ -13,10 +14,21 @@ public class Shop : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform shopContainer;
     [SerializeField] private GameObject shopItemPrefab;
+    private int coins;
+    private int health;
     // Start is called before the first frame update
     void Start()
     {
         PopulateShop();
+        if(!PlayerPrefs.HasKey("Health"))
+            PlayerPrefs.SetString("Health","100");
+        if(!PlayerPrefs.HasKey("Coins"))
+            PlayerPrefs.SetString("Coins","0");
+        Int32.TryParse(PlayerPrefs.GetString("Coins","0"),out coins);
+        Int32.TryParse(PlayerPrefs.GetString("Health","100"),out health);
+        GameObject.FindGameObjectWithTag("Health").GetComponent<TextMeshProUGUI>().text = health.ToString();
+        GameObject.FindGameObjectWithTag("Coins").GetComponent<TextMeshProUGUI>().text = "$ " + coins;
+        
     }
 
     // Update is called once per frame
@@ -46,7 +58,7 @@ public class Shop : MonoBehaviour
             }
             else
             {
-                itemObject.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(si));
+                itemObject.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(itemObject));
             }
             
 
@@ -57,8 +69,14 @@ public class Shop : MonoBehaviour
         }
     }
 
-    private void OnButtonClick(ShopItem item)
+    private void OnButtonClick(GameObject item)
     {
-        Debug.Log(item.itemName);
+        item.GetComponent<Button>().interactable = false;
+        item.transform.GetChild(1).gameObject.SetActive(false);
+        item.transform.GetChild(4).gameObject.SetActive(true);
+    }
+
+    public void returnBtn(){
+        SceneManager.LoadScene("Menu");
     }
 }

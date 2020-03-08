@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class ExhibitPlayer : MonoBehaviour
 {
+    [SerializeField]
+    private float RotationPerSec;
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0,60*Time.deltaTime,0);
+        transform.Rotate(0,RotationPerSec*Time.deltaTime,0);
     }
 }
