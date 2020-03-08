@@ -7,4 +7,5 @@ public class ShopItem : ScriptableObject
     public Sprite sprite;
     public int cost;
     public Color backgroundColor;
+    public int incHealth;
 }

@@ -58,7 +58,7 @@ public class Shop : MonoBehaviour
             }
             else
             {
-                itemObject.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(itemObject));
+                itemObject.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(itemObject, si));
             }
             
 
@@ -69,14 +69,35 @@ public class Shop : MonoBehaviour
         }
     }
 
-    private void OnButtonClick(GameObject item)
+    private void OnButtonClick(GameObject item, ShopItem si)
     {
-        item.GetComponent<Button>().interactable = false;
-        item.transform.GetChild(1).gameObject.SetActive(false);
-        item.transform.GetChild(4).gameObject.SetActive(true);
+        if(coins > si.cost){
+            //GUI
+            item.GetComponent<Button>().interactable = false;
+            item.transform.GetChild(1).gameObject.SetActive(false);
+            item.transform.GetChild(4).gameObject.SetActive(true);
+            PlayerPrefs.SetString("Health", (health+si.incHealth).ToString());
+            // coins
+            coins -= si.cost;
+            GameObject.FindGameObjectWithTag("Coins").GetComponent<TextMeshProUGUI>().text = "$ " + coins;
+        } else {
+            StopAllCoroutines();
+            StartCoroutine(Warning());
+        }
     }
 
     public void returnBtn(){
         SceneManager.LoadScene("Menu");
+    }
+    IEnumerator Warning()
+    {
+        GameObject warning = GameObject.Find("Warning");
+        for(float ft =1f; ft>=0; ft-=0.01f)
+        {
+            Color c = warning.GetComponent<TextMeshProUGUI>().color;
+            c.a = ft;
+            warning.GetComponent<TextMeshProUGUI>().color = c;
+            yield return new WaitForSeconds(.01f);
+        }
     }
 }

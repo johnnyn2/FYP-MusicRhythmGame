@@ -16,3 +16,4 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 80bab2775f9379a4394c703227b67740, type: 3}
   cost: 100
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  incHealth: 10
