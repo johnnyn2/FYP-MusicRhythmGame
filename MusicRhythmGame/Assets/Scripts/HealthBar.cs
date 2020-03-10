@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,8 +11,13 @@ public class HealthBar : MonoBehaviour
     private float startHealth;
 
     void Start() {
-        health = 100;
-        startHealth = 100;
+        if(PlayerPrefs.HasKey("Health"))
+            startHealth = health = float.Parse(PlayerPrefs.GetString("Health"));
+        else
+        {
+            PlayerPrefs.SetString("Health","100");
+            startHealth = health = 100f;
+        }
     }
 
     public void OnTakeDamage(int damage) {
