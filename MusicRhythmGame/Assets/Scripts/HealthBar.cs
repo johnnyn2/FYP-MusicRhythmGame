@@ -7,16 +7,16 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     public Image healthBar;
-    private float health;
-    private float startHealth;
+    private int health;
+    private int startHealth;
 
     void Start() {
         if(PlayerPrefs.HasKey("Health"))
-            startHealth = health = float.Parse(PlayerPrefs.GetString("Health"));
+            startHealth = health = PlayerPrefs.GetInt("Health");
         else
         {
-            PlayerPrefs.SetString("Health","100");
-            startHealth = health = 100f;
+            PlayerPrefs.SetInt("Health", 100);
+            startHealth = health = 100;
         }
     }
 
@@ -25,7 +25,11 @@ public class HealthBar : MonoBehaviour
             return;
         }
         health = health - damage;
-        healthBar.fillAmount = health / startHealth;
+        Debug.Log("Health :" + health);
+        Debug.Log("Start Health: " + startHealth);
+        Debug.Log("Damage: " + damage);
+        healthBar.fillAmount = (float)health / (float)startHealth;
+
         if (health <= 0) {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().Dead();
         }

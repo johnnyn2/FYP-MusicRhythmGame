@@ -86,6 +86,12 @@ public class SoundManager : MonoBehaviour
         if (timer > (animationDuration + s.clip.length + 5.0f)) {
             statusContainer.HideStatus();
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().Dead();
+            if (PlayerPrefs.HasKey("Coins")) {
+                PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 100);
+            } else {
+                PlayerPrefs.SetInt("Coins",100);
+            }
+            
         }
     }
 
