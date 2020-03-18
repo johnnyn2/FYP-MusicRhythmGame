@@ -44,13 +44,9 @@ public class Shop : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void PopulateShop()
     {
+        Debug.Log("Populate Shop");
         for (int i = 0; i < shopItems.Length; i++)
         {
             ShopItem si = shopItems[i];
@@ -102,7 +98,7 @@ public class Shop : MonoBehaviour
         {
             //GUI
             selectedItem.GetComponent<Button>().interactable = false;
-            selectedItem.transform.GetChild(1).gameObject.SetActive(false);
+            //selectedItem.transform.GetChild(1).gameObject.SetActive(false);
             selectedItem.transform.GetChild(4).gameObject.SetActive(true);
             PlayerPrefs.SetInt("Health", health + selectedShopItem.incHealth);
             PlayerPrefs.SetInt("DamageRed", damageRed + selectedShopItem.damageRed);
