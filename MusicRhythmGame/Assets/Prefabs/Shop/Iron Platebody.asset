@@ -17,3 +17,6 @@ MonoBehaviour:
   cost: 200
   backgroundColor: {r: 0.016251326, g: 1, b: 0, a: 1}
   incHealth: 20
+  damageRed: 0
+  itemEffect: Health +20
+  isbrought: 0
