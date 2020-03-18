@@ -21,11 +21,13 @@ public class Shop : MonoBehaviour
     {
         PopulateShop();
         if(!PlayerPrefs.HasKey("Health"))
-            PlayerPrefs.SetString("Health","100");
+            PlayerPrefs.SetInt("Health",100);
         if(!PlayerPrefs.HasKey("Coins"))
-            PlayerPrefs.SetString("Coins","0");
-        Int32.TryParse(PlayerPrefs.GetString("Coins","0"),out coins);
-        Int32.TryParse(PlayerPrefs.GetString("Health","100"),out health);
+            PlayerPrefs.SetInt("Coins",0);
+        // Int32.TryParse(PlayerPrefs.GetString("Coins","0"),out coins);
+        coins = PlayerPrefs.GetInt("Coins");
+        // Int32.TryParse(PlayerPrefs.GetString("Health","100"),out health);
+        health = PlayerPrefs.GetInt("Health");
         GameObject.FindGameObjectWithTag("Health").GetComponent<TextMeshProUGUI>().text = health.ToString();
         GameObject.FindGameObjectWithTag("Coins").GetComponent<TextMeshProUGUI>().text = "$ " + coins;
         
@@ -76,7 +78,7 @@ public class Shop : MonoBehaviour
             item.GetComponent<Button>().interactable = false;
             item.transform.GetChild(1).gameObject.SetActive(false);
             item.transform.GetChild(4).gameObject.SetActive(true);
-            PlayerPrefs.SetString("Health", (health+si.incHealth).ToString());
+            PlayerPrefs.SetInt("Health", health+si.incHealth);
             // coins
             coins -= si.cost;
             GameObject.FindGameObjectWithTag("Coins").GetComponent<TextMeshProUGUI>().text = "$ " + coins;
