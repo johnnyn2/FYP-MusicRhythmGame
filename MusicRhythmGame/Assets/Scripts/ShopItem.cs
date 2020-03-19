@@ -8,4 +8,7 @@ public class ShopItem : ScriptableObject
     public int cost;
     public Color backgroundColor;
     public int incHealth;
+    public int damageRed;
+    public string itemEffect;
+    public bool isbrought;
 }
