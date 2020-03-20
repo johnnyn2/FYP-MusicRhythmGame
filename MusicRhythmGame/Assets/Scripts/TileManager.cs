@@ -7,8 +7,8 @@ public class TileManager : MonoBehaviour
     public GameObject[] tilePrefabs;
     private Transform playerTransform;
     private float spawnZ = 0.0f; // where exactly in Z should we spawn this object
-    private float tileLength = 10.0f; // according to the tile asset length
-    private float safeZone = 15.0f; // within the safe zone, the tiles won't be deleted
+    private float tileLength = 50.0f; // according to the tile asset length
+    private float safeZone = 75.0f; // within the safe zone, the tiles won't be deleted
     private int amnTilesOnScreen = 10; // number of tiles on screen at most
     private int lastPrefabIndex = 0;
     private List<GameObject> activeTiles;
@@ -45,7 +45,7 @@ public class TileManager : MonoBehaviour
         //     go = Instantiate(tilePrefabs[prefabIndex]) as GameObject;
         go = Instantiate(tilePrefabs[0]) as GameObject;
         go.transform.SetParent(transform);
-        go.transform.position = Vector3.forward * (spawnZ + 5.0F);
+        go.transform.position = Vector3.forward * (spawnZ + 25.0F);
         spawnZ += tileLength;
         activeTiles.Add(go);
     }
