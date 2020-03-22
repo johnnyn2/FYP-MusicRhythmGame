@@ -32,7 +32,7 @@ public class Shop : MonoBehaviour
             PlayerPrefs.SetInt("Health",100);
         if(!PlayerPrefs.HasKey("Coins"))
             PlayerPrefs.SetInt("Coins",0);
-        if(!PlayerPrefs.HasKey("DamageRed"));
+        if(!PlayerPrefs.HasKey("DamageRed"))
             PlayerPrefs.SetInt("DamageRed",0);
         // Int32.TryParse(PlayerPrefs.GetString("Coins","0"),out coins);
         coins = PlayerPrefs.GetInt("Coins");
