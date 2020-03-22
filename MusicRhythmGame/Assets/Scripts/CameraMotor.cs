@@ -8,7 +8,7 @@ public class CameraMotor : MonoBehaviour
     private Vector3 startOffset;
     private Vector3 moveVector;
     private float transition = 0.0f; // when the game starts, transition was on 0
-    private float animationDuration = 2.0f; // 2 seconds to complete the anim
+    private float animationDuration = 2.5f; // 2 seconds to complete the anim
     private Vector3 animationOffset = new Vector3(0, 5, 5);
     // Start is called before the first frame update
     void Start()
