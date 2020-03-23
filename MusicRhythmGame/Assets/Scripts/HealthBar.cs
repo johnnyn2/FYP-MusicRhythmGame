@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,12 +7,17 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     public Image healthBar;
-    private float health;
-    private float startHealth;
+    private int health;
+    private int startHealth;
 
     void Start() {
-        health = 100;
-        startHealth = 100;
+        if(PlayerPrefs.HasKey("Health"))
+            startHealth = health = PlayerPrefs.GetInt("Health");
+        else
+        {
+            PlayerPrefs.SetInt("Health", 100);
+            startHealth = health = 100;
+        }
     }
 
     public void OnTakeDamage(int damage) {
@@ -19,7 +25,11 @@ public class HealthBar : MonoBehaviour
             return;
         }
         health = health - damage;
-        healthBar.fillAmount = health / startHealth;
+
+        Debug.Log("Health :" + health);
+        Debug.Log("Start Health: " + startHealth);
+        Debug.Log("Damage: " + damage);
+        healthBar.fillAmount = (float)health / (float)startHealth;
         if (health <= 60)
             healthBar.color = new Color32(231,163,32,255);
         if (health <= 30) 

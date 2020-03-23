@@ -38,7 +38,7 @@ public class SoundManager : MonoBehaviour
 {
     public Sound[] songs;
     private float timer;
-    private float animationDuration = 2.0f;
+    private float animationDuration = 2.5f;
 
     private SpectralFluxAnalyzer preProcessedSpectralFluxAnalyzer;
     public List<SpectralFluxInfo> peakOfPeakSamples;
@@ -48,6 +48,7 @@ public class SoundManager : MonoBehaviour
     private float clipLength;
     private float[] samples;
     public StatusContainer statusContainer;
+    private bool hasSetCoins = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -79,13 +80,19 @@ public class SoundManager : MonoBehaviour
     void Update() {
         timer += Time.deltaTime;
         Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
-        Debug.Log("Music at : " + s.source.time + " s");
         if (timer > (animationDuration + s.clip.length)) {
             statusContainer.ShowStatus();
         }
         if (timer > (animationDuration + s.clip.length + 5.0f)) {
             statusContainer.HideStatus();
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().Dead();
+            if (PlayerPrefs.HasKey("Coins") && !hasSetCoins) {
+                PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 100);
+                hasSetCoins = true;
+            } else if (!hasSetCoins) {
+                PlayerPrefs.SetInt("Coins",100);
+                hasSetCoins = true;
+            }
         }
     }
 

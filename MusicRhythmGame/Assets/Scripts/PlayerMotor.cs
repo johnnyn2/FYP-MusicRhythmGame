@@ -108,11 +108,13 @@ public class PlayerMotor : MonoBehaviour
             target = thirdLane;
         else if (Input.GetButtonDown("Forth Lane"))
             target = forthLane;
+
+        if (Input.GetButtonDown("First Lane") || Input.GetButtonDown("Second Lane") || Input.GetButtonDown("Third Lane") || Input.GetButtonDown("Forth Lane"))
+            Attack();
+        
         // determine the Waarrior is on the Lane or not
         if (transform.position.x > target - 0.2f && transform.position.x < target + 0.2f)
         {
-            if(Input.GetButtonDown("First Lane") || Input.GetButtonDown("Second Lane") || Input.GetButtonDown("Third Lane") || Input.GetButtonDown("Forth Lane"))
-                Attack();
             if (transform.position.x > target - 0.1f && transform.position.x < target + 0.1f)
                 leftOrRight = 0;
         }

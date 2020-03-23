@@ -36,7 +36,7 @@ public class Minion : MonoBehaviour
         if(gameObject.transform.position.z <= Player.transform.position.z-6.0f) {
             GameObject healthBar = GameObject.FindGameObjectWithTag("HealthBarBg");
             if (!anim.GetBool("isDead")) {
-                healthBar.GetComponent<HealthBar>().OnTakeDamage(10);
+                healthBar.GetComponent<HealthBar>().OnTakeDamage(10-PlayerPrefs.GetInt("DamageRed",0));
             }
             GameObject soundManager = GameObject.Find("SoundManager");
             List<SpectralFluxInfo> peakOfPeakSamples = soundManager.GetComponent<SoundManager>().peakOfPeakSamples;

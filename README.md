@@ -1,4 +1,4 @@
-# MusicRhythmGame
+# MusicRhythmGame https://johnnyn2.github.io/MusicRhythmGameBuild/
 --------------------
 ## Project Setup: Install UnityHub and Unity (https://unity3d.com/get-unity/download)
 ### Step 1: Install UnityHub
