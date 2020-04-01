@@ -120,6 +120,8 @@ public class SoundManager : MonoBehaviour
                 return 90;
             case "kimetsunoYaiba":
                 return 135;
+            case "nonono":
+                return 106;
             default: return 90;
         }
     }
