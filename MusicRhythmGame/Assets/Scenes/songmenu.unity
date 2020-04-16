@@ -655,7 +655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.2427826, y: -0.97003174}
+  m_AnchoredPosition: {x: 2.2427979, y: -0.97003174}
   m_SizeDelta: {x: 288.33, y: 209.89279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &333287681
@@ -4753,14 +4753,17 @@ MonoBehaviour:
   - Faded
   - The Fat Rat - Unity
   - Kimetsuno Yaiba
+  - No No No
   duration:
   - 4:33
   - 1:33
   - 3:33
+  - 2:33
   songNickname:
   - faded
   - theFatRat
   - kimetsunoYaiba
+  - nonono
   songNameText: {fileID: 1172903682}
   songDurationText: {fileID: 666053192}
   songNumText: {fileID: 361008742}

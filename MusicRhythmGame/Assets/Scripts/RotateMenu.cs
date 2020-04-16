@@ -29,6 +29,8 @@ public class RotateMenu : MonoBehaviour
         songNameText.text = songList[0];
         songDurationText.text = duration[0];
         PlayerPrefs.SetString("selectedSong", songNickname[0]);
+        songNumText.text = 1.ToString() + " / " + songList.Length.ToString();
+
     }
 
     // Update is called once per frame
