@@ -682,10 +682,6 @@ MonoBehaviour:
   songNameText: {fileID: 1172903682}
   songDurationText: {fileID: 666053192}
   songNumText: {fileID: 0}
-  LeftBtn: {fileID: 851714256}
-  RightBtn: {fileID: 1008634109}
-  BpmBtn: {fileID: 0}
-  OnsetBtn: {fileID: 0}
   loadingScreen: {fileID: 0}
   slider: {fileID: 0}
 --- !u!1 &358714321
@@ -4767,10 +4763,6 @@ MonoBehaviour:
   songNameText: {fileID: 1172903682}
   songDurationText: {fileID: 666053192}
   songNumText: {fileID: 361008742}
-  LeftBtn: {fileID: 851714256}
-  RightBtn: {fileID: 1008634109}
-  BpmBtn: {fileID: 0}
-  OnsetBtn: {fileID: 0}
   loadingScreen: {fileID: 358714321}
   slider: {fileID: 264624007}
 --- !u!224 &1786833564
