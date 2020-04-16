@@ -16,10 +16,6 @@ public class RotateMenu : MonoBehaviour
     public TextMeshProUGUI songDurationText;
     public TextMeshProUGUI songNumText;
 
-    public GameObject LeftBtn;
-    public GameObject RightBtn;
-    public GameObject BpmBtn;
-    public GameObject OnsetBtn;
     public GameObject loadingScreen;
     public Slider slider;
 
