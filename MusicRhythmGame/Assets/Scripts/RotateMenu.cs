@@ -22,10 +22,12 @@ public class RotateMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        songNameText.text = songList[0];
-        songDurationText.text = duration[0];
-        PlayerPrefs.SetString("selectedSong", songNickname[0]);
-        songNumText.text = 1.ToString() + " / " + songList.Length.ToString();
+        if (songList.Length >0 && duration.Length > 0 && songNickname.Length > 0) {
+            songNameText.text = songList[0];
+            songDurationText.text = duration[0];
+            PlayerPrefs.SetString("selectedSong", songNickname[0]);
+            songNumText.text = 1.ToString() + " / " + songList.Length.ToString();
+        }
 
     }
 

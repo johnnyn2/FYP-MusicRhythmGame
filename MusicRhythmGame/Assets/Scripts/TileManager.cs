@@ -8,8 +8,8 @@ public class TileManager : MonoBehaviour
     private Transform playerTransform;
     private float spawnZ = 0.0f; // where exactly in Z should we spawn this object
     private float tileLength = 50.0f; // according to the tile asset length
-    private float safeZone = 75.0f; // within the safe zone, the tiles won't be deleted
-    private int amnTilesOnScreen = 10; // number of tiles on screen at most
+    private float safeZone = 55.0f; // within the safe zone, the tiles won't be deleted
+    private int amnTilesOnScreen = 4; // number of tiles on screen at most
     private int lastPrefabIndex = 0;
     private List<GameObject> activeTiles;
     private int ranTheme = -1; // 0 forest, 1 desert, 2 snow
