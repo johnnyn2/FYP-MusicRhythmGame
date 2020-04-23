@@ -45,21 +45,8 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Amature|AmatureAction' has import animation
-      warnings that might lower retargeting quality:\nNote: Activate translation DOF
-      on avatar to improve retargeting quality.\n\t'spine2' has scale animation that
-      will be discarded.\n"
-    animationRetargetingWarnings: "\nRetargeting quality report for clip 'Amature|AmatureAction':\n\tLeftUpperArm
-      average position error 2.9 mm and maximum position error 3.0 mm at time 1:23
-      (29.2%) Frame 47\n\tLeftLowerArm average position error 4.2 mm and maximum position
-      error 16.1 mm at time 0:10 (2.2%) Frame 10\n\tLeftHand average position error
-      4.2 mm and maximum position error 5.0 mm at time 1: 7 (17.5%) Frame 31\n\tRightUpperArm
-      average position error 2.8 mm and maximum position error 2.9 mm at time 4:12
-      (74.5%) Frame 108\n\tRightLowerArm average position error 3.7 mm and maximum
-      position error 16.1 mm at time 0:10 (2.2%) Frame 10\n\tRightHand average position
-      error 4.0 mm and maximum position error 4.6 mm at time 4:18 (78.1%) Frame 114\n\tHead
-      average position error 3.7 mm and maximum position error 3.8 mm at time 1: 3
-      (14.6%) Frame 27\n"
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
@@ -112,11 +99,11 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -141,11 +128,11 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -170,11 +157,11 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -224,7 +211,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 3
