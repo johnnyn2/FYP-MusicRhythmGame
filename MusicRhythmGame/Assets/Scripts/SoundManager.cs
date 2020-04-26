@@ -62,6 +62,7 @@ public class SoundManager : MonoBehaviour
     }
     
     void Start() {
+        AudioListener.pause = false;
         timer = 0f;
         peakOfPeakSamples = new List<SpectralFluxInfo>();
         if (PlayerPrefs.GetString("mode") == "beat") {
