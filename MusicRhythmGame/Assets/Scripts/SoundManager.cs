@@ -48,6 +48,7 @@ public class SoundManager : MonoBehaviour
     private float clipLength;
     private float[] samples;
     public StatusContainer statusContainer;
+    public PauseMenu pauseMenu;
     private bool hasSetCoins = false;
 
     // Start is called before the first frame update
@@ -62,7 +63,6 @@ public class SoundManager : MonoBehaviour
     }
     
     void Start() {
-        AudioListener.pause = false;
         timer = 0f;
         peakOfPeakSamples = new List<SpectralFluxInfo>();
         if (PlayerPrefs.GetString("mode") == "beat") {
@@ -79,8 +79,14 @@ public class SoundManager : MonoBehaviour
         // SpectralFluxAnalysis();
     }
     void Update() {
-        timer += Time.deltaTime;
         Sound s = Array.Find(songs, song => song.name == PlayerPrefs.GetString("selectedSong"));
+        if (pauseMenu.GameIsPause) {
+            s.source.Pause();
+            return;
+        } else {
+            s.source.UnPause();
+        }
+        timer += Time.deltaTime;
         if (timer > (animationDuration + s.clip.length)) {
             statusContainer.ShowStatus();
         }

@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    void Start() {
-        AudioListener.pause = false;    
-    }
     public void ToGame() {
         SceneManager.LoadScene("songmenu");
     }
