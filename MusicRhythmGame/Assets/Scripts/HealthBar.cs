@@ -25,11 +25,15 @@ public class HealthBar : MonoBehaviour
             return;
         }
         health = health - damage;
+
         Debug.Log("Health :" + health);
         Debug.Log("Start Health: " + startHealth);
         Debug.Log("Damage: " + damage);
         healthBar.fillAmount = (float)health / (float)startHealth;
-
+        if (health <= 60)
+            healthBar.color = new Color32(231,163,32,255);
+        if (health <= 30) 
+            healthBar.color = new Color32(255,0,0,255);
         if (health <= 0) {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().Dead();
         }
