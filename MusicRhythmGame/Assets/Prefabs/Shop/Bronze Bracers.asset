@@ -18,5 +18,5 @@ MonoBehaviour:
   backgroundColor: {r: 0.6039216, g: 0.18431373, b: 0.8666667, a: 1}
   incHealth: 0
   damageRed: 1
-  itemEffect: Damage Reduction 10%
+  itemEffect: Damage reduction 10%
   isbrought: 0
