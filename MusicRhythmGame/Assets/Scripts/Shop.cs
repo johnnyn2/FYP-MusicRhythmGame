@@ -118,6 +118,7 @@ public class Shop : MonoBehaviour
         Debug.Log("cancel");
         confirmBtn.SetActive(false);
         cancelBtn.SetActive(false);
+        itemEffect.text = "Item effect:";
     }
     IEnumerator Warning()
     {
