@@ -92,14 +92,14 @@ public class SoundManager : MonoBehaviour
         }
         if (timer > (animationDuration + s.clip.length + 5.0f)) {
             statusContainer.HideStatus();
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().Dead();
-            if (PlayerPrefs.HasKey("Coins") && !hasSetCoins) {
-                PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 100);
-                hasSetCoins = true;
-            } else if (!hasSetCoins) {
-                PlayerPrefs.SetInt("Coins",100);
-                hasSetCoins = true;
-            }
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().Dead(true);
+            // if (PlayerPrefs.HasKey("Coins") && !hasSetCoins) {
+            //     PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 100);
+            //     hasSetCoins = true;
+            // } else if (!hasSetCoins) {
+            //     PlayerPrefs.SetInt("Coins",100);
+            //     hasSetCoins = true;
+            // }
         }
     }
 

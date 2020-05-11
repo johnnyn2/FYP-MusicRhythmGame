@@ -137,9 +137,9 @@ public class PlayerMotor : MonoBehaviour
         Attacking = true;
     }
 
-    public void Dead() {
+    public void Dead(bool win) {
         isDead = true;
-        GetComponent<Score>().OnDeath();
+        GetComponent<Score>().OnDeath(win);
         Debug.Log("Death");
     }
 

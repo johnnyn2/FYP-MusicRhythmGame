@@ -35,7 +35,7 @@ public class HealthBar : MonoBehaviour
         if (health <= 30) 
             healthBar.color = new Color32(255,0,0,255);
         if (health <= 0) {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().Dead();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMotor>().Dead(false);
         }
     }
 }

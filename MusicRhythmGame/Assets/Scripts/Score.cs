@@ -46,11 +46,11 @@ public class Score : MonoBehaviour
         GetComponent<PlayerMotor>().SetSpeed(difficultyLevel);
     }
 
-    public void OnDeath() {
+    public void OnDeath(bool win) {
         isDead = true;
         if (PlayerPrefs.GetFloat("Highscore") < score) {
             PlayerPrefs.SetFloat("Highscore", score); // Set the highest score into Registry
         }
-        deathMenu.ToggleEndMenu(score);
+        deathMenu.ToggleEndMenu(score, win);
     }
 }
