@@ -103,6 +103,8 @@ public class Shop : MonoBehaviour
             PlayerPrefs.SetInt("Health", health + selectedShopItem.incHealth);
             PlayerPrefs.SetInt("DamageRed", damageRed + selectedShopItem.damageRed);
             selectedShopItem.isbrought = true;
+            // health
+            GameObject.FindGameObjectWithTag("Health").GetComponent<TextMeshProUGUI>().text = (health + selectedShopItem.incHealth).ToString();
             // coins
             coins -= selectedShopItem.cost;
             GameObject.FindGameObjectWithTag("Coins").GetComponent<TextMeshProUGUI>().text = "$ " + coins;
