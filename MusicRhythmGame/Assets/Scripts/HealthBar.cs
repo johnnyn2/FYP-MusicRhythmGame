@@ -22,7 +22,7 @@ public class HealthBar : MonoBehaviour
 
     public void OnTakeDamage(int damage) {
         if (damage > health) {
-            return;
+            health = damage;
         }
         health = health - damage;
 
