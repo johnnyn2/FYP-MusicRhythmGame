@@ -26,6 +26,8 @@ public class Shop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        damageRed = 0;
+        health = 100;
         PopulateShop();
 
         if(!PlayerPrefs.HasKey("Health"))
@@ -37,8 +39,10 @@ public class Shop : MonoBehaviour
         // Int32.TryParse(PlayerPrefs.GetString("Coins","0"),out coins);
         coins = PlayerPrefs.GetInt("Coins");
         // Int32.TryParse(PlayerPrefs.GetString("Health","100"),out health);
-        health = PlayerPrefs.GetInt("Health");
-        damageRed = PlayerPrefs.GetInt("DamageRed");
+        // health = PlayerPrefs.GetInt("Health");
+        PlayerPrefs.SetInt("Health",health);
+        //damageRed = PlayerPrefs.GetInt("DamageRed");
+        PlayerPrefs.SetInt("DamageRed",damageRed);
         GameObject.FindGameObjectWithTag("Health").GetComponent<TextMeshProUGUI>().text = health.ToString();
         GameObject.FindGameObjectWithTag("Coins").GetComponent<TextMeshProUGUI>().text = "$ " + coins;
         
@@ -64,6 +68,9 @@ public class Shop : MonoBehaviour
                 // itemObject.GetComponent<Button>().interactable = false;
                 // itemObject.transform.GetChild(1).gameObject.SetActive(false);
                 itemObject.transform.GetChild(4).gameObject.SetActive(true);
+                itemObject.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(itemObject, si));
+                health += si.incHealth;
+                damageRed += si.damageRed;
             }
             else
             {
@@ -107,6 +114,9 @@ public class Shop : MonoBehaviour
             coins -= selectedShopItem.cost;
             GameObject.FindGameObjectWithTag("Coins").GetComponent<TextMeshProUGUI>().text = "$ " + coins;
             PlayerPrefs.SetInt("Coins", coins);
+            // health
+            health += selectedShopItem.incHealth;
+            GameObject.FindGameObjectWithTag("Health").GetComponent<TextMeshProUGUI>().text = health.ToString();
         }
         else
         {
