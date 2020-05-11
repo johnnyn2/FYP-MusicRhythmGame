@@ -12,6 +12,7 @@ public class DeathMenu : MonoBehaviour
     private bool isShown = false;
     private float transition = 0.0f;
     private bool win = false;
+    private int score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,7 @@ public class DeathMenu : MonoBehaviour
     public void ToggleEndMenu(float score, bool win) {
         gameObject.SetActive(true);
         scoreText.text = ((int)score).ToString() + " hit";
+        this.score = ((int)score);
         isShown = true;
         this.win = win;
     }
@@ -44,9 +46,9 @@ public class DeathMenu : MonoBehaviour
     public void ToMenu() {
         if(win){
             if (PlayerPrefs.HasKey("Coins")) {
-                PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + int.Parse(scoreText.text));
+                PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + ((int)(score*0.4)));
             } else {
-                PlayerPrefs.SetInt("Coins",int.Parse(scoreText.text));
+                PlayerPrefs.SetInt("Coins",((int)(score * 0.4)));
             }
         }
         SceneManager.LoadScene("menu");
