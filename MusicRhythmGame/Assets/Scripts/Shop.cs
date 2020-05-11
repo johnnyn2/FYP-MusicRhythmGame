@@ -106,6 +106,7 @@ public class Shop : MonoBehaviour
             // coins
             coins -= selectedShopItem.cost;
             GameObject.FindGameObjectWithTag("Coins").GetComponent<TextMeshProUGUI>().text = "$ " + coins;
+            PlayerPrefs.SetInt("Coins", coins);
         }
         else
         {
